@@ -169,11 +169,11 @@ public final class Main {
                 String newPasswordRepeated = StdIn.readLine();
 
                 if (newPassword.equals(newPasswordRepeated)) {
-
-
+                    socio.setPassword(newPassword);
                     break;
                 }
 
+                StdOut.println("Lo siento las contraseña no son iguales");
             }
 
         }
