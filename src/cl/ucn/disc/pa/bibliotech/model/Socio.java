@@ -41,7 +41,7 @@ public final class Socio {
     /**
      * Contrasenia del socio.
      */
-    private String contrasenia;
+    private String password;
 
     /**
      * Libros que el Socio tiene en prestamo (maximo 10).
@@ -73,7 +73,7 @@ public final class Socio {
         this.numeroDeSocio = numeroDeSocio;
 
         // TODO: agregar validacion
-        this.contrasenia = contrasenia;
+        this.password = contrasenia;
     }
 
     /**
@@ -114,8 +114,12 @@ public final class Socio {
     /**
      * @return la contrasenia del Socio.
      */
-    public String getContrasenia() {
-        return this.contrasenia;
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**

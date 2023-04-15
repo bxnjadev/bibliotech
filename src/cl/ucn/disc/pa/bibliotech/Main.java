@@ -4,6 +4,7 @@
 
 package cl.ucn.disc.pa.bibliotech;
 
+import cl.ucn.disc.pa.bibliotech.model.Socio;
 import cl.ucn.disc.pa.bibliotech.services.Sistema;
 import edu.princeton.cs.stdlib.StdIn;
 import edu.princeton.cs.stdlib.StdOut;
@@ -142,7 +143,7 @@ public final class Main {
         }
     }
 
-    private static void updatePassword(Sistema sisteme, int partnerNumber) {
+    private static void updatePassword(Sistema bibliotechSystem, int partnerNumber) {
 
         StdOut.println("" +
                 "[*] Has accedido al sistema de cambio de contraseña de BiblioTech" +
@@ -150,7 +151,32 @@ public final class Main {
                 "Contraseña antigua: ");
 
         String oldPassword = StdIn.readLine();
+        int realPartnerNumber = partnerNumber - 1;
 
+        Socio socio = bibliotechSystem.getPartner(realPartnerNumber);
+        String actualPassword = socio.getPassword();
+
+        if (!actualPassword.equals(oldPassword)) {
+            StdOut.println("Lo siento, la contraseña ingresada no es valida");
+        } else {
+
+            while (true) {
+
+                StdOut.println("Ingresa una nueva contraseña: ");
+                String newPassword = StdIn.readLine();
+
+                StdOut.println("Ahora ingresa de nuevo contraseña: ");
+                String newPasswordRepeated = StdIn.readLine();
+
+                if (newPassword.equals(newPasswordRepeated)) {
+
+
+                    break;
+                }
+
+            }
+
+        }
 
     }
 
