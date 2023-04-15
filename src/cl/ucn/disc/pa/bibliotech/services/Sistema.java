@@ -94,6 +94,10 @@ public final class Sistema {
 
     }
 
+    public Socio getPartner(int partnerId) {
+        return socios[partnerId];
+    }
+
     /**
      * Cierra la session del Socio.
      */

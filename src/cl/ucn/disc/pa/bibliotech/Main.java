@@ -74,10 +74,10 @@ public final class Main {
         }
 
         // mostrar menu principal
-        menuPrincipal(sistema);
+        //menuPrincipal(sistema, );
     }
 
-    private static void menuPrincipal(final Sistema sistema) {
+    private static void menuPrincipal(final Sistema sistema, int partnerNumber) {
         String opcion = null;
         while (!Objects.equals(opcion, "4")) {
             StdOut.println("""
@@ -95,7 +95,7 @@ public final class Main {
 
             switch (opcion) {
                 case "1" -> menuPrestamo(sistema);
-                case "2" -> editarInformacion(sistema);
+                case "2" -> editarInformacion(sistema, partnerNumber);
                 // case "3" -> TODO: Crear metodo de calificar libro.
                 case "4" -> sistema.cerrarSession();
                 default -> StdOut.println("Opcion no valida, intente nuevamente");
@@ -117,7 +117,7 @@ public final class Main {
         }
     }
 
-    private static void editarInformacion(Sistema sistema) {
+    private static void editarInformacion(Sistema sistema, int partnerNumber) {
 
         String opcion = null;
         while (!Objects.equals(opcion, "3")) {
@@ -135,15 +135,23 @@ public final class Main {
 
             switch (opcion) {
                 case "1" -> editarCorreo(sistema);
-                case "2" -> cambiarContrasenia(sistema);
+                case "2" -> updatePassword(sistema, partnerNumber);
                 case "3" -> StdOut.println("Volviendo al menú anterior...");
                 default -> StdOut.println("Opcion no valida, intente nuevamente");
             }
         }
     }
 
-    private static void cambiarContrasenia(Sistema sistema) {
-        // TODO: implementar este metodo
+    private static void updatePassword(Sistema sisteme, int partnerNumber) {
+
+        StdOut.println("" +
+                "[*] Has accedido al sistema de cambio de contraseña de BiblioTech" +
+                "" +
+                "Contraseña antigua: ");
+
+        String oldPassword = StdIn.readLine();
+
+
     }
 
     private static void editarCorreo(Sistema sistema) {
