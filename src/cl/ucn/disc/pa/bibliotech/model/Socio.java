@@ -31,7 +31,7 @@ public final class Socio {
     /**
      * Email del socio.
      */
-    private String correoElectronico;
+    private String mail;
 
     /**
      * Numero del socio.
@@ -57,7 +57,7 @@ public final class Socio {
      * @param numeroDeSocio     del socio.
      * @param contrasenia       del socio.
      */
-    public Socio(String nombre, String apellido, String correoElectronico, int numeroDeSocio, String contrasenia) {
+    public Socio(String nombre, String apellido, String mail, int numeroDeSocio, String contrasenia) {
 
         // TODO: agregar validacion
         this.nombre = nombre;
@@ -66,8 +66,8 @@ public final class Socio {
         this.apellido = apellido;
 
         // metodo estatico para validacion de email.
-        Utils.validarEmail(correoElectronico);
-        this.correoElectronico = correoElectronico;
+        Utils.validarEmail(mail);
+        this.mail = mail;
 
         // TODO: agregar validacion
         this.numeroDeSocio = numeroDeSocio;
@@ -101,7 +101,7 @@ public final class Socio {
      * @return el correo electronico del Socio.
      */
     public String getCorreoElectronico() {
-        return this.correoElectronico;
+        return this.mail;
     }
 
     /**
@@ -120,6 +120,10 @@ public final class Socio {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     /**

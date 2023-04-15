@@ -95,7 +95,7 @@ public final class Sistema {
     }
 
     public Socio getPartner(int partnerId) {
-        return socios[partnerId];
+        return socios[partnerId - 1];
     }
 
     /**

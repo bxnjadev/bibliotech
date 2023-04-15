@@ -6,6 +6,7 @@ package cl.ucn.disc.pa.bibliotech;
 
 import cl.ucn.disc.pa.bibliotech.model.Socio;
 import cl.ucn.disc.pa.bibliotech.services.Sistema;
+import cl.ucn.disc.pa.bibliotech.services.Utils;
 import edu.princeton.cs.stdlib.StdIn;
 import edu.princeton.cs.stdlib.StdOut;
 
@@ -135,7 +136,7 @@ public final class Main {
             opcion = StdIn.readLine();
 
             switch (opcion) {
-                case "1" -> editarCorreo(sistema);
+                case "1" -> editMail(sistema, partnerNumber);
                 case "2" -> updatePassword(sistema, partnerNumber);
                 case "3" -> StdOut.println("Volviendo al menú anterior...");
                 default -> StdOut.println("Opcion no valida, intente nuevamente");
@@ -143,20 +144,23 @@ public final class Main {
         }
     }
 
+    private static boolean checkPassword(Sistema bibliotechSystem, Socio partner) {
+        StdOut.println("Ingresa contraseña: ");
+
+        String passwordEntered = StdIn.readLine();
+
+        String password = partner.getPassword();
+        return password.equals(passwordEntered);
+    }
+
     private static void updatePassword(Sistema bibliotechSystem, int partnerNumber) {
 
         StdOut.println("" +
-                "[*] Has accedido al sistema de cambio de contraseña de BiblioTech" +
-                "" +
-                "Contraseña antigua: ");
+                "[*] Has accedido al sistema de cambio de contraseña de BiblioTech");
 
-        String oldPassword = StdIn.readLine();
-        int realPartnerNumber = partnerNumber - 1;
+        Socio partner = bibliotechSystem.getPartner(partnerNumber);
 
-        Socio socio = bibliotechSystem.getPartner(realPartnerNumber);
-        String actualPassword = socio.getPassword();
-
-        if (!actualPassword.equals(oldPassword)) {
+        if (!checkPassword(bibliotechSystem, partner)) {
             StdOut.println("Lo siento, la contraseña ingresada no es valida");
         } else {
 
@@ -169,7 +173,7 @@ public final class Main {
                 String newPasswordRepeated = StdIn.readLine();
 
                 if (newPassword.equals(newPasswordRepeated)) {
-                    socio.setPassword(newPassword);
+                    partner.setPassword(newPassword);
                     break;
                 }
 
@@ -180,7 +184,39 @@ public final class Main {
 
     }
 
-    private static void editarCorreo(Sistema sistema) {
-        // TODO: implementar este metodo
+    private static void editMail(Sistema bibliotechSystem, int partnerNumber) {
+
+        StdOut.println("" +
+                "[*] Has accedido al sistema de cambio de correo electronico de BiblioTech" +
+                "" +
+                "Contraseña antigua: ");
+
+        Socio partner = bibliotechSystem.getPartner(partnerNumber);
+
+        if (!checkPassword(bibliotechSystem, partner)) {
+            StdOut.println("La contrase no es correcta ");
+        } else {
+
+            while (true) {
+
+                String oldMail = partner.getCorreoElectronico();
+
+                StdOut.println("Ingresa un nuevo correo: ");
+                String newMail = StdIn.readLine();
+
+                if (oldMail.equals(newMail)) {
+                    StdOut.println("Este es el correo que ya tienes");
+                } else {
+
+                    Utils.validarEmail(newMail);
+                    partner.setMail(newMail);
+                    StdOut.println("Has cambiado el correo hasta " + newMail);
+
+                }
+
+            }
+
+        }
+
     }
 }
