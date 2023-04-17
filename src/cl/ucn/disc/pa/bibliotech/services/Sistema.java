@@ -8,6 +8,7 @@ import cl.ucn.disc.pa.bibliotech.model.Libro;
 import cl.ucn.disc.pa.bibliotech.model.Socio;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import edu.princeton.cs.stdlib.StdOut;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -79,19 +80,31 @@ public final class Sistema {
      * @param numeroDeSocio a utilizar.
      * @param contrasenia   a validar.
      */
-    public void iniciarSession(final int numeroDeSocio, final String contrasenia) {
+    public void iniciarSession(final int numeroDeSocio, final String passwordEntered) {
 
         // el numero de socio siempre es positivo.
+
         if (numeroDeSocio <= 0) {
-            throw new IllegalArgumentException("El numero de socio no es valido!");
+            trhowIllegalException("El número de socio no es valido!");
         }
 
-        // TODO: buscar el socio dado su numero.
+        Socio partner = getPartner(numeroDeSocio);
 
-        // TODO: verificar su clave.
+        if (partner == null) {
+            trhowIllegalException("El socio no existe");
+        }
+
+        if (!passwordEntered.equals(partner.getPassword())) {
+            StdOut.println("La contraseña no es correcta");
+            return;
+        }
 
         // TODO: asignar al atributo socio el socio encontrado.
 
+    }
+
+    private void trhowIllegalException(String message) {
+        throw new IllegalArgumentException(message);
     }
 
     public Socio getPartner(int partnerId) {
