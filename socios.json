@@ -2,17 +2,15 @@
   {
     "nombre": "John",
     "apellido": "Doe",
-    "correoElectronico": "john.doe@ucn.cl",
     "numeroDeSocio": 1,
-    "contrasenia": "john123",
-    "librosEnPrestamo": []
+    "librosEnPrestamo": [],
+    "contrasenia": "john123"
   },
   {
-    "nombre": "Fabian",
-    "apellido": "Belmonte",
-    "correoElectronico": "fabian.belmonte@ucn.cl",
+    "nombre": "Juan",
+    "apellido": "Ruiz",
     "numeroDeSocio": 2,
-    "contrasenia": "asd123",
-    "librosEnPrestamo": []
+    "librosEnPrestamo": [],
+    "contrasenia": "hola123"
   }
 ]

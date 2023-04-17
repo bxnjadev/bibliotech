@@ -99,6 +99,7 @@ public final class Sistema {
             return;
         }
 
+        StdOut.println("Logeado! ");
         // TODO: asignar al atributo socio el socio encontrado.
 
     }
