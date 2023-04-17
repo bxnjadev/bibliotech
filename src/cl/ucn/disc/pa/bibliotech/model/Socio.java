@@ -127,6 +127,10 @@ public final class Socio {
         this.mail = mail;
     }
 
+    public void deleteBook(Libro book) {
+        
+    }
+
     /**
      * Agrega un libro en prestamo al Socio.
      *

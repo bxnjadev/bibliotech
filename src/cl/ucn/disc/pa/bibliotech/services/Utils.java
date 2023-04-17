@@ -47,6 +47,10 @@ public final class Utils {
         return theList.toArray(theStaticArray);
     }
 
+    public static <T> T[] removeElement(T[] array, T object) {
+        return null;
+    }
+
     /**
      * Valida un correo electronico, en caso de no ser valido se lanza una Exception.
      *

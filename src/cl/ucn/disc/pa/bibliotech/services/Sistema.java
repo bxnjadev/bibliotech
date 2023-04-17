@@ -104,7 +104,6 @@ public final class Sistema {
         }
 
         StdOut.println("Logeado! ");
-        // TODO: asignar al atributo socio el socio encontrado.
 
     }
 
@@ -177,7 +176,7 @@ public final class Sistema {
      * @param isbn a buscar.
      * @return el libro o null si no fue encontrado.l
      */
-    private Libro buscarLibro(final String isbn) {
+    public Libro buscarLibro(final String isbn) {
         // recorro el arreglo de libros.
         for (Libro libro : this.libros) {
             // si lo encontre, retorno el libro.
@@ -220,12 +219,12 @@ public final class Sistema {
 
     }
 
-    public String obtenerDatosSocioLogeado() {
-        if (this.socio == null) {
-            throw new IllegalArgumentException("No hay un Socio logeado");
-        }
+    public String obtenerDatosSocioLogeado(int partnerNumber) {
 
-        return "Nombre: " + this.socio.getNombreCompleto() + "\n"
-                + "Correo Electronico: " + this.socio.getCorreoElectronico();
+        Socio socio = getPartner(partnerNumber);
+
+        return "Nombre: " + socio.getNombreCompleto() + "\n"
+                + "Correo Electronico: " + socio.getCorreoElectronico();
     }
+
 }

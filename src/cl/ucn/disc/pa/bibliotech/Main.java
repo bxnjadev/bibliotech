@@ -4,6 +4,7 @@
 
 package cl.ucn.disc.pa.bibliotech;
 
+import cl.ucn.disc.pa.bibliotech.model.Libro;
 import cl.ucn.disc.pa.bibliotech.model.Socio;
 import cl.ucn.disc.pa.bibliotech.services.Sistema;
 import cl.ucn.disc.pa.bibliotech.services.Utils;
@@ -125,7 +126,7 @@ public final class Main {
         while (!Objects.equals(opcion, "3")) {
 
             StdOut.println("[*] Editar Perfil [*]");
-            StdOut.println(sistema.obtenerDatosSocioLogeado());
+            StdOut.println(sistema.obtenerDatosSocioLogeado(partnerNumber));
             StdOut.println("""               
                     [1] Editar correo Electronico
                     [2] Editar Contraseña
@@ -227,6 +228,9 @@ public final class Main {
         while (true) {
 
             StdOut.println("Por favor escribe el ISBN del libro que deseas calificar: ");
+            String isbn = StdIn.readLine();
+
+            Libro bookSearched = bibliotechSystem.b
 
 
         }
