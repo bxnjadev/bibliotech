@@ -59,6 +59,7 @@ public final class Socio {
      */
     public Socio(String nombre, String apellido, String mail, int numeroDeSocio, String contrasenia) {
 
+
         // TODO: agregar validacion
         this.nombre = nombre;
 

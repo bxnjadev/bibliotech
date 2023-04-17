@@ -58,6 +58,8 @@ public final class Sistema {
         } catch (FileNotFoundException ex) {
             // no se encontraron datos, se agregar los por defecto.
 
+            System.out.println("test");
+
             // creo un socio
             this.socios = Utils.append(this.socios, new Socio("John", "Doe", "john.doe@ucn.cl", 1, "john123"));
 
@@ -93,6 +95,9 @@ public final class Sistema {
         if (partner == null) {
             trhowIllegalException("El socio no existe");
         }
+
+        StdOut.println("Password entered " + passwordEntered);
+        StdOut.println("Password " + partner.getPassword());
 
         if (!passwordEntered.equals(partner.getPassword())) {
             StdOut.println("La contraseña no es correcta");

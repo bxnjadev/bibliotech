@@ -3,14 +3,14 @@
     "nombre": "John",
     "apellido": "Doe",
     "numeroDeSocio": 1,
-    "librosEnPrestamo": [],
-    "contrasenia": "john123"
+    "password": "hola",
+    "librosEnPrestamo": []
   },
   {
     "nombre": "Juan",
     "apellido": "Ruiz",
     "numeroDeSocio": 2,
-    "librosEnPrestamo": [],
-    "contrasenia": "hola123"
+    "password": "hola",
+    "librosEnPrestamo": []
   }
 ]
