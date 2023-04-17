@@ -75,11 +75,11 @@ public final class Main {
             return;
         }
 
-        // mostrar menu principal
-        //menuPrincipal(sistema, );
+
+        showMainMenu(sistema, numeroSocio);
     }
 
-    private static void menuPrincipal(final Sistema sistema, int partnerNumber) {
+    private static void showMainMenu(final Sistema sistema, int partnerNumber) {
         String opcion = null;
         while (!Objects.equals(opcion, "4")) {
             StdOut.println("""
@@ -144,13 +144,13 @@ public final class Main {
         }
     }
 
-    private static boolean checkPassword(Sistema bibliotechSystem, Socio partner) {
+    private static boolean checkPassword(Socio partner) {
         StdOut.println("Ingresa contraseña: ");
 
         String passwordEntered = StdIn.readLine();
 
         String password = partner.getPassword();
-        return password.equals(passwordEntered);
+        return !password.equals(passwordEntered);
     }
 
     private static void updatePassword(Sistema bibliotechSystem, int partnerNumber) {
@@ -160,7 +160,7 @@ public final class Main {
 
         Socio partner = bibliotechSystem.getPartner(partnerNumber);
 
-        if (!checkPassword(bibliotechSystem, partner)) {
+        if (checkPassword(partner)) {
             StdOut.println("Lo siento, la contraseña ingresada no es valida");
         } else {
 
@@ -193,7 +193,7 @@ public final class Main {
 
         Socio partner = bibliotechSystem.getPartner(partnerNumber);
 
-        if (!checkPassword(bibliotechSystem, partner)) {
+        if (checkPassword(partner)) {
             StdOut.println("La contrase no es correcta ");
         } else {
 
@@ -211,7 +211,7 @@ public final class Main {
                     Utils.validarEmail(newMail);
                     partner.setMail(newMail);
                     StdOut.println("Has cambiado el correo hasta " + newMail);
-
+                    break;
                 }
 
             }
@@ -219,4 +219,18 @@ public final class Main {
         }
 
     }
+
+    private static void openMenuRankingBook(Sistema bibliotechSystem, int partnerNumber) {
+
+        StdOut.println("Bienvenido al sistema de calificaciones de BiblioTech ");
+
+        while (true) {
+
+            StdOut.println("Por favor escribe el ISBN del libro que deseas calificar: ");
+
+
+        }
+
+    }
+
 }
