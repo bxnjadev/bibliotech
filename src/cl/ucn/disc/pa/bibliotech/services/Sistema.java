@@ -94,13 +94,12 @@ public final class Sistema {
 
         if (partner == null) {
             trhowIllegalException("El socio no existe");
+            return;
         }
-
-        StdOut.println("Password entered " + passwordEntered);
-        StdOut.println("Password " + partner.getPassword());
 
         if (!passwordEntered.equals(partner.getPassword())) {
             StdOut.println("La contraseña no es correcta");
+            trhowIllegalException("La contraseña no es correcta");
             return;
         }
 
