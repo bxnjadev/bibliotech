@@ -77,10 +77,10 @@ public final class Main {
         }
 
 
-        showMainMenu(sistema, numeroSocio);
+        mostrarMenuPrincipal(sistema, numeroSocio);
     }
 
-    private static void showMainMenu(final Sistema sistema, int partnerNumber) {
+    private static void mostrarMenuPrincipal(final Sistema sistema, int partnerNumber) {
         String opcion = null;
         while (!Objects.equals(opcion, "4")) {
             StdOut.println("""
@@ -112,7 +112,13 @@ public final class Main {
         }
     }
 
-    private static void menuPrestamo(Sistema sistema) {
+    /**
+     * Open prestamo menu
+     *
+     * @param sistema the bibliotech system
+     */
+
+    private static void mostrarMenuPrestamo(Sistema sistema) {
         StdOut.println("[*] Préstamo de un Libro [*]");
         StdOut.println(sistema.obtegerCatalogoLibros());
 
@@ -126,29 +132,35 @@ public final class Main {
         }
     }
 
-    private static void openMenuReturnBook(Sistema bibliotechSystem) {
+    /**
+     * Open and show the return book menu
+     *
+     * @param bibliotechSystem the bibliotech system
+     */
+
+    private static void mostrarMenuDeDevueltaDeLibros(Sistema bibliotechSystem) {
 
         StdOut.println("Bienvenido al sistema de devolución de libros: ");
         StdOut.println("Por favor ingresa el ISBN del libro que deseas devolver: ");
 
         String isbn = StdIn.readLine();
 
-        Libro bookSearched = bibliotechSystem.buscarLibro(isbn);
+        Libro libroBuscado = bibliotechSystem.buscarLibro(isbn);
 
-        if (bookSearched == null) {
+        if (libroBuscado == null) {
             StdOut.println("Lo siento este libro no existe");
             return;
         }
 
-        Socio partner = bibliotechSystem.getParnerLogged();
+        Socio socio = bibliotechSystem.getParnerLogged();
 
-        if (!partner.hasBook(isbn)) {
+        if (!socio.hasBook(isbn)) {
             StdOut.println("Lo siento no tienes este libro");
             return;
         }
 
-        bookSearched.updateAsNotUsed();
-        partner.deleteBook(bookSearched);
+        libroBuscado.updateAsNotUsed();
+        socio.deleteBook(bookSearched);
 
         StdOut.println("Has devuelto el libro!");
 
@@ -159,6 +171,13 @@ public final class Main {
         }
 
     }
+
+    /**
+     * Abrir y mostrar los ajustes del socio
+     *
+     * @param sistema       the bibliotech system
+     * @param partnerNumber the partner number id
+     */
 
     private static void editarInformacion(Sistema sistema, int partnerNumber) {
 
@@ -185,36 +204,50 @@ public final class Main {
         }
     }
 
-    private static boolean checkPassword(Socio partner) {
+    /**
+     * Verificar si una contraseña es correcta
+     *
+     * @param socio el socio
+     * @return devuelve verdadero si son iguales y falso si no es así
+     */
+
+    private static boolean verificarClave(Socio socio) {
         StdOut.println("Ingresa contraseña: ");
 
-        String passwordEntered = StdIn.readLine();
+        String claveIngresada = StdIn.readLine();
 
-        String password = partner.getPassword();
-        return !password.equals(passwordEntered);
+        String clave = socio.getPassword();
+        return !clave.equals(claveIngresada);
     }
 
-    private static void updatePassword(Sistema bibliotechSystem, int partnerNumber) {
+    /**
+     * Abrir el menu de cambio de contraseña
+     *
+     * @param sistema el sistema de bibliotech
+     * @param idSocio la id del socio
+     */
+
+    private static void updatePassword(Sistema sistema, int idSocio) {
 
         StdOut.println("" +
                 "[*] Has accedido al sistema de cambio de contraseña de BiblioTech");
 
-        Socio partner = bibliotechSystem.getPartner(partnerNumber);
+        Socio socio = sistema.getPartner(idSocio);
 
-        if (checkPassword(partner)) {
+        if (verificarClave(socio)) {
             StdOut.println("Lo siento, la contraseña ingresada no es valida");
         } else {
 
             while (true) {
 
                 StdOut.println("Ingresa una nueva contraseña: ");
-                String newPassword = StdIn.readLine();
+                String nuevaClave = StdIn.readLine();
 
                 StdOut.println("Ahora ingresa de nuevo contraseña: ");
-                String newPasswordRepeated = StdIn.readLine();
+                String nuevaClaveRepetida = StdIn.readLine();
 
-                if (newPassword.equals(newPasswordRepeated)) {
-                    bibliotechSystem.updatePassword(newPassword);
+                if (nuevaClave.equals(nuevaClaveRepetida)) {
+                    sistema.updatePassword(nuevaClave);
                     break;
                 }
 
@@ -225,16 +258,23 @@ public final class Main {
 
     }
 
-    private static void editMail(Sistema bibliotechSystem, int partnerNumber) {
+    /**
+     * Abrir el menu de edición de correo
+     *
+     * @param sistema el sistema de bibliotech
+     * @param socioId la id del socio
+     */
+
+    private static void editMail(Sistema sistema, int socioId) {
 
         StdOut.println("" +
                 "[*] Has accedido al sistema de cambio de correo electronico de BiblioTech" +
                 "" +
                 "Contraseña antigua: ");
 
-        Socio partner = bibliotechSystem.getPartner(partnerNumber);
+        Socio partner = sistema.getPartnerLogged();
 
-        if (checkPassword(partner)) {
+        if (verificarClave(partner)) {
             StdOut.println("La contrase no es correcta ");
         } else {
 
@@ -250,7 +290,7 @@ public final class Main {
                 } else {
 
                     Utils.validarEmail(newMail);
-                    bibliotechSystem.updateMail(newMail);
+                    sistema.updateMail(newMail);
                     StdOut.println("Has cambiado el correo hasta " + newMail);
                     break;
                 }
@@ -261,7 +301,14 @@ public final class Main {
 
     }
 
-    private static void rankBook(Sistema bibliotechSystem, int partnerNumber) {
+    /**
+     * Abrir el menu de calificación de libros
+     *
+     * @param sistema el sistema de bibliotech
+     * @param socioId id del socio
+     */
+
+    private static void calificarLibro(Sistema sistema, int socioId) {
 
         StdOut.println("Bienvenido al sistema de calificaciones de BiblioTech ");
 
@@ -270,55 +317,61 @@ public final class Main {
             StdOut.println("Por favor escribe el ISBN del libro que deseas calificar: ");
             String isbn = StdIn.readLine();
 
-            Libro bookSearched = bibliotechSystem.buscarLibro(isbn);
+            Libro libroBuscado = sistema.buscarLibro(isbn);
 
-            if (bookSearched == null) {
+            if (libroBuscado == null) {
                 StdOut.println("Este libro no ha sido encontrado");
                 break;
             }
 
             StdOut.println("Ahora la calificación... ");
-            int calification = StdIn.readInt();
+            int calificacion = StdIn.readInt();
 
-            if (!(0 < calification && calification < 6)) {
+            if (!(0 < calificacion && calificacion < 6)) {
                 StdOut.println("Lo siento calificación no valida, recuerda que debes ");
                 break;
             }
 
-            bookSearched.rankBook(calification, partnerNumber);
+            libroBuscado.rankBook(calificacion, socioId);
 
             try {
-                bibliotechSystem.guardarInformacion();
+                sistema.guardarInformacion();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            StdOut.println("Has calificacado el libro " + bookSearched.getTitulo() + " con " + calification + " estrellas");
+            StdOut.println("Has calificacado el libro " + libroBuscado.getTitulo() + " con " + calificacion + " estrellas");
             break;
         }
 
     }
 
-    public static void unRankBook(Sistema bibliotechSystem) {
+    /**
+     * Remove a calification in a book
+     *
+     * @param sistema el sistema de bibliotech
+     */
+
+    public static void removerCalification(Sistema sistema) {
 
         StdOut.println("Ingresa el isbn del libro que quieras quitar una calificación: ");
         String isbn = StdIn.readLine();
 
-        Libro bookSearched = bibliotechSystem.buscarLibro(isbn);
+        Libro libroBuscado = sistema.buscarLibro(isbn);
 
-        if (bookSearched == null) {
+        if (libroBuscado == null) {
             StdOut.println("Lo siento libro no encontrado");
             return;
         }
 
-        Socio partner = bibliotechSystem.getParnerLogged();
+        Socio partner = sistema.getParnerLogged();
 
-        bookSearched.unRankBook(
+        libroBuscado.unRankBook(
                 partner.getNumeroDeSocio()
         );
 
         try {
-            bibliotechSystem.guardarInformacion();
+            sistema.guardarInformacion();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -327,12 +380,18 @@ public final class Main {
 
     }
 
-    public static void showDataBook(Sistema bibliotechSystem) {
+    /**
+     * Dado un isbn muestra un libro
+     *
+     * @param sistema el sistema de bibliotech
+     */
+
+    public static void mostrarLirbo(Sistema sistema) {
 
         StdOut.println("Ingresa el isbn del libro del que quieras ver su información: ");
         String isbn = StdIn.readLine();
 
-        Libro bookSearched = bibliotechSystem.buscarLibro(isbn);
+        Libro bookSearched = sistema.buscarLibro(isbn);
 
         if (bookSearched == null) {
             StdOut.println("Lo siento, libro no encontrado");
@@ -345,12 +404,12 @@ public final class Main {
         StdOut.println("ISBN: " + bookSearched.getIsbn());
         StdOut.println("Categoria: " + bookSearched.getCategoria());
 
-        int finalCalification = bookSearched.getFinalCalification();
+        int calificacion = bookSearched.getFinalCalification();
 
-        if (finalCalification == -1) {
+        if (calificacion == -1) {
             StdOut.println("Calificación: No se ha calificado este libro");
         } else {
-            StdOut.println("Calificacion: " + bookSearched.getFinalCalification());
+            StdOut.println("Calificacion: " + calificacion);
         }
 
     }
