@@ -109,16 +109,23 @@ public final class Libro {
         miembros = Utils.append(miembros, idSocio);
     }
 
-    public int partnerHasRanked(int idSocio) {
+    public int socioHaCalificadoEsteLibro(int idSocio) {
+
+        //Recorre todos los socios
+
         for (int i = 0; i < miembros.length; i++) {
 
             int algunaId = miembros[i];
+
+            //Verifica si la id es igual a la del socio y devuelve esa posición
 
             if (algunaId == idSocio) {
                 return i;
             }
 
         }
+
+        //Si no lo encuentra devuelva -1
         return -1;
     }
 
@@ -147,32 +154,41 @@ public final class Libro {
         int calificacionFinal;
         int sumaCalificacion = 0;
 
-        if (miembros.length == 0) {
+        //Verifica si el libro tiene calificaciones
+
+        if (calificaciones.length == 0) {
             return -1;
         }
 
-        for (int calificacion : miembros) {
+        //Recorre todas las calificaciones y las suma
+
+        for (int calificacion : calificaciones) {
             sumaCalificacion = calificacion + sumaCalificacion;
         }
 
+        //Si no sumo ninguna devuelve -1
         if (sumaCalificacion == 0) {
             return -1;
         }
 
+        //Obtiene el promedio y se imprima
         calificacionFinal = sumaCalificacion / calificaciones.length;
         return calificacionFinal;
     }
 
     public void removerCalificacion(int idSocio) {
 
-        int index = partnerHasRanked(idSocio);
+        //Se obitene la posicion
+        int index = socioHaCalificadoEsteLibro(idSocio);
 
+        //Si es -1 se lanzar error
         if (index == -1) {
             throw new IllegalArgumentException("Lo siento este libro no lo has calificado");
         }
 
-        Utils.removeElement(miembros, miembros[index]);
-        Utils.removeElement(calificaciones, calificaciones[index]);
+        //Se elimina de calificaciones
+        calificaciones = Utils.removeElement(miembros, miembros[index]);
+        miembros = Utils.removeElement(calificaciones, calificaciones[index]);
 
     }
 

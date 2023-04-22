@@ -115,6 +115,8 @@ public final class Sistema {
      */
 
     private void lanzarExcepcion(String mensaje) {
+        //Se lanza una excepción
+
         throw new IllegalArgumentException(mensaje);
     }
 
@@ -126,6 +128,9 @@ public final class Sistema {
      */
 
     public Socio getSocio(int idSocio) {
+
+        //Se obtiene un socio del array de socios, se resta una posición para que quede en orden
+
         return socios[idSocio - 1];
     }
 
@@ -166,6 +171,8 @@ public final class Sistema {
             throw new IllegalArgumentException("Libro con isbn " + isbn + " no existe o no se encuentra disponible.");
         }
 
+        //El libro no debe estar en uso
+
         if (libro.enUso()) {
             throw new IllegalArgumentException("Lo siento el libro está en uso");
         }
@@ -189,8 +196,16 @@ public final class Sistema {
      */
     public String obtegerCatalogoLibros() {
 
+        //Se recorre todos los libros
+
         StringBuilder sb = new StringBuilder();
+        //Se crea un StringBuilder para anidar un String, al saber que se vana a
+        // concatenar varias cosas se usa este objeto en vez de " "
+
         for (Libro libro : this.libros) {
+
+            //Se imprime
+
             sb.append("Titulo    : ").append(libro.getTitulo()).append("\n");
             sb.append("Autor     : ").append(libro.getAutor()).append("\n");
             sb.append("ISBN      : ").append(libro.getIsbn()).append("\n");
@@ -226,6 +241,9 @@ public final class Sistema {
      */
 
     public void actualizarClaveYGuardar(String clave) {
+
+        //Se actualiza la clave del socio logeado y luego se guarda
+
         try {
             socio.setClave(clave);
             guardarInformacion();
@@ -241,6 +259,9 @@ public final class Sistema {
      */
 
     public void actualizarCorreoYGuardar(String correo) {
+
+        //Se actualiza el correo del socio logeado y luego se guarda
+
         try {
             socio.setCorreo(correo);
             guardarInformacion();
@@ -288,6 +309,8 @@ public final class Sistema {
      */
 
     public String obtenerDatosSocioLogeado() {
+
+        //Se obtiene los datos del socio logeado y se devuelven
 
         Socio socio = getSocioLogeado();
 
