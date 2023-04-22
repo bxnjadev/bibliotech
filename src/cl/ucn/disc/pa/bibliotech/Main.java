@@ -35,6 +35,9 @@ public final class Main {
         StdOut.println(sistema.obtegerCatalogoLibros());
 
         String opcion = null;
+
+        //el while funciona como menu principal de la app
+
         while (!Objects.equals(opcion, "2")) {
 
             StdOut.println("""
@@ -45,6 +48,8 @@ public final class Main {
                     """);
             StdOut.print("Escoja una opcion: ");
             opcion = StdIn.readLine();
+
+            // se esperan las opciones 1 o 2
 
             switch (opcion) {
                 case "1" -> iniciarSesion(sistema);
@@ -65,6 +70,8 @@ public final class Main {
         int numeroSocio = StdIn.readInt();
         StdIn.readLine();
 
+        //Se espera una contraseña por pantalla
+
         StdOut.print("Ingrese su contrasenia: ");
         String contrasenia = StdIn.readLine();
 
@@ -76,12 +83,15 @@ public final class Main {
             return;
         }
 
-
+        //Se meustra el menú principal
         mostrarMenuPrincipal(sistema, numeroSocio);
     }
 
     private static void mostrarMenuPrincipal(final Sistema sistema, int partnerNumber) {
         String opcion = null;
+
+        //Este while funciona como menu principal
+
         while (!Objects.equals(opcion, "4")) {
             StdOut.println("""
                     [*] BiblioTech [*]
@@ -97,7 +107,12 @@ public final class Main {
                     """);
 
             StdOut.print("Escoja una opcion: ");
+
+            //Se lee una opción por consola
+
             opcion = StdIn.readLine();
+
+            //Se esperan hasta 7 opciones
 
             switch (opcion) {
                 case "1" -> mostrarMenuPrestamo(sistema);
@@ -120,16 +135,25 @@ public final class Main {
 
     private static void mostrarMenuPrestamo(Sistema sistema) {
         StdOut.println("[*] Préstamo de un Libro [*]");
+
+        //Se muestran los catalogos de libro
+
         StdOut.println(sistema.obtegerCatalogoLibros());
+
+        //Se espera por consola un ISBN
 
         StdOut.print("Ingrese el ISBN del libro a tomar prestado: ");
         String isbn = StdIn.readLine();
 
         try {
+
+            //Se llama a la función que realiza un prestamo
+
             sistema.realizarPrestamoLibro(isbn);
         } catch (IOException ex) {
             StdOut.println("Ocurrio un error, intente nuevamente: " + ex.getMessage());
         }
+
     }
 
     /**
@@ -143,21 +167,31 @@ public final class Main {
         StdOut.println("Bienvenido al sistema de devolución de libros: ");
         StdOut.println("Por favor ingresa el ISBN del libro que deseas devolver: ");
 
+        //Se espera un isbn para regresar el libro
+
         String isbn = StdIn.readLine();
 
         Libro libroBuscado = bibliotechSystem.buscarLibro(isbn);
+
+        //Se verifica si el libro no es nulo
 
         if (libroBuscado == null) {
             StdOut.println("Lo siento este libro no existe");
             return;
         }
 
+        //Se obtiene el socio logeado
+
         Socio socio = bibliotechSystem.getSocioLogeado();
+
+        //Se verifica si el socio no tiene el libro en ese caso se le avisa
 
         if (!socio.tieneLibro(isbn)) {
             StdOut.println("Lo siento no tienes este libro");
             return;
         }
+
+        //El libro es sacado de uso y se borra
 
         libroBuscado.sacarDeUso();
         socio.borrarLibro(libroBuscado);
@@ -165,6 +199,9 @@ public final class Main {
         StdOut.println("Has devuelto el libro!");
 
         try {
+
+            //Por último se guarda
+
             bibliotechSystem.guardarInformacion();
         } catch (IOException e) {
             e.printStackTrace();
@@ -182,6 +219,9 @@ public final class Main {
     private static void editarInformacion(Sistema sistema, int partnerNumber) {
 
         String opcion = null;
+
+        //Este while sirve como menu de edición de información
+
         while (!Objects.equals(opcion, "3")) {
 
             StdOut.println("[*] Editar Perfil [*]");
@@ -195,9 +235,11 @@ public final class Main {
             StdOut.print("Escoja una opción: ");
             opcion = StdIn.readLine();
 
+            //Se espera 3 opciones, editar correo actualizar clave o regresar
+
             switch (opcion) {
-                case "1" -> editMail(sistema);
-                case "2" -> updatePassword(sistema);
+                case "1" -> modificarCorreo(sistema);
+                case "2" -> modificarClave(sistema);
                 case "3" -> StdOut.println("Volviendo al menú anterior...");
                 default -> StdOut.println("Opcion no valida, intente nuevamente");
             }
@@ -212,6 +254,9 @@ public final class Main {
      */
 
     private static boolean verificarClave(Socio socio) {
+
+        //Se le pide una clave y luego se verifica si es la misma que se ingreso
+
         StdOut.println("Ingresa contraseña: ");
 
         String claveIngresada = StdIn.readLine();
@@ -226,29 +271,42 @@ public final class Main {
      * @param sistema el sistema de bibliotech
      */
 
-    private static void updatePassword(Sistema sistema) {
+    private static void modificarClave(Sistema sistema) {
 
         StdOut.println("" +
                 "[*] Has accedido al sistema de cambio de contraseña de BiblioTech");
 
+        //Se obtiene un socio logeado
+
         Socio socio = sistema.getSocioLogeado();
+
+        //Se verifica la clase
 
         if (verificarClave(socio)) {
             StdOut.println("Lo siento, la contraseña ingresada no es valida");
         } else {
+
+            //Este while será ejecutado hasta que ingrese bien la clave
 
             while (true) {
 
                 StdOut.println("Ingresa una nueva contraseña: ");
                 String nuevaClave = StdIn.readLine();
 
+                //Se pide una contraseña
+
                 StdOut.println("Ahora ingresa de nuevo contraseña: ");
                 String nuevaClaveRepetida = StdIn.readLine();
+
+                //Luego se pide otra
 
                 if (nuevaClave.equals(nuevaClaveRepetida)) {
                     sistema.actualizarClaveYGuardar(nuevaClave);
                     break;
                 }
+
+                //Si son iguales se cambia y se guarda
+
 
                 StdOut.println("Lo siento las contraseña no son iguales");
             }
@@ -263,18 +321,24 @@ public final class Main {
      * @param sistema el sistema de bibliotech
      */
 
-    private static void editMail(Sistema sistema) {
+    private static void modificarCorreo(Sistema sistema) {
 
         StdOut.println("" +
                 "[*] Has accedido al sistema de cambio de correo electronico de BiblioTech" +
                 "" +
                 "Contraseña antigua: ");
 
+        //Se obtiene el socio logeado
+
         Socio socio = sistema.getSocioLogeado();
+
+        //Se verifica la clave
 
         if (verificarClave(socio)) {
             StdOut.println("La contrase no es correcta ");
         } else {
+
+            //Este while es hasta que se haya puesto bien el correo
 
             while (true) {
 
@@ -283,9 +347,13 @@ public final class Main {
                 StdOut.println("Ingresa un nuevo correo: ");
                 String nuevoCorreo = StdIn.readLine();
 
-                if (!correoViejo.equals(nuevoCorreo)) {
+                //Se verifica si los correos son iguales, si es así te lo dice
+
+                if (correoViejo.equals(nuevoCorreo)) {
                     StdOut.println("Este es el correo que ya tienes");
                 } else {
+
+                    //Sino son iguales se valida el correo, se actualiza y guarda
 
                     Utils.validarEmail(nuevoCorreo);
                     sistema.actualizarCorreoYGuardar(nuevoCorreo);
@@ -310,27 +378,44 @@ public final class Main {
 
         StdOut.println("Bienvenido al sistema de calificaciones de BiblioTech ");
 
+        //Este while es hasta que se califican los libros
+
         while (true) {
 
             StdOut.println("Por favor escribe el ISBN del libro que deseas calificar: ");
+
+            //Se obtiene un isbn
+
             String isbn = StdIn.readLine();
 
+            //Se busca un libro a base de un isbn
+
             Libro libroBuscado = sistema.buscarLibro(isbn);
+
+            //Se verifica si el libro buscado es nulo
 
             if (libroBuscado == null) {
                 StdOut.println("Este libro no ha sido encontrado");
                 break;
             }
 
+            //Ahora se pide la calificacion
+
             StdOut.println("Ahora la calificación... ");
             int calificacion = StdIn.readInt();
+
+            // Se verifica si la calificación esta en ese intervalo
 
             if (!(0 < calificacion && calificacion < 6)) {
                 StdOut.println("Lo siento calificación no valida, recuerda que debes ");
                 break;
             }
 
+            //Se califica un libro dado una calificación y la id del socio
+
             libroBuscado.calificarLibro(calificacion, socioId);
+
+            //Se intenta guardar la información
 
             try {
                 sistema.guardarInformacion();
@@ -353,20 +438,33 @@ public final class Main {
     public static void removerCalification(Sistema sistema) {
 
         StdOut.println("Ingresa el isbn del libro que quieras quitar una calificación: ");
+
+        //Se consulta un isbn para calificar
+
         String isbn = StdIn.readLine();
 
+        //Luego se busca el libro a base del isbn
+
         Libro libroBuscado = sistema.buscarLibro(isbn);
+
+        //Se verifica si es nulo
 
         if (libroBuscado == null) {
             StdOut.println("Lo siento libro no encontrado");
             return;
         }
 
+        //Se obtiene el socio logeado en el sistema
+
         Socio partner = sistema.getSocioLogeado();
+
+        //Se remueve la calificación
 
         libroBuscado.removerCalificacion(
                 partner.getNumeroDeSocio()
         );
+
+        //Por ultimo se intenta guardar los datos en el sistema
 
         try {
             sistema.guardarInformacion();
@@ -386,23 +484,30 @@ public final class Main {
 
     public static void mostrarLibro(Sistema sistema) {
 
+        //Se obtiene el isbn del libro que se quite obtener la información
+
         StdOut.println("Ingresa el isbn del libro del que quieras ver su información: ");
         String isbn = StdIn.readLine();
 
-        Libro bookSearched = sistema.buscarLibro(isbn);
+        //Se busca el libro
 
-        if (bookSearched == null) {
+        Libro libroBuscado = sistema.buscarLibro(isbn);
+
+        //Se verifica si es libro es nulo
+
+        if (libroBuscado == null) {
             StdOut.println("Lo siento, libro no encontrado");
             return;
         }
 
+        //Se muestran los datos por pantalla
 
-        StdOut.println("Titulo: " + bookSearched.getTitulo());
-        StdOut.println("Autor: " + bookSearched.getAutor());
-        StdOut.println("ISBN: " + bookSearched.getIsbn());
-        StdOut.println("Categoria: " + bookSearched.getCategoria());
+        StdOut.println("Titulo: " + libroBuscado.getTitulo());
+        StdOut.println("Autor: " + libroBuscado.getAutor());
+        StdOut.println("ISBN: " + libroBuscado.getIsbn());
+        StdOut.println("Categoria: " + libroBuscado.getCategoria());
 
-        int calificacion = bookSearched.getFinalCalification();
+        int calificacion = libroBuscado.getFinalCalification();
 
         if (calificacion == -1) {
             StdOut.println("Calificación: No se ha calificado este libro");
