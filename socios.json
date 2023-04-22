@@ -11,6 +11,19 @@
         "autor": " Kathy Sierra",
         "categoria": "Programming Languages",
         "inUse": true
+      },
+      {
+        "isbn": "1491910771",
+        "titulo": "Head First Java: A Brain-Friendly Guide",
+        "autor": " Kathy Sierra",
+        "categoria": "Programming Languages",
+        "greats": [
+          5
+        ],
+        "members": [
+          1
+        ],
+        "inUse": true
       }
     ]
   },

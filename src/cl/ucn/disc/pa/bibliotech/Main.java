@@ -275,6 +275,7 @@ public final class Main {
                 break;
             }
 
+            StdOut.println("Ahora la calificación... ");
             int calification = StdIn.readInt();
 
             if (!(0 < calification && calification < 6)) {
@@ -283,8 +284,15 @@ public final class Main {
             }
 
             bookSearched.rankBook(calification, partnerNumber);
-            StdOut.println("Has calificacado el libro " + bookSearched.getTitulo() + " con " + calification + " estrellas");
 
+            try {
+                bibliotechSystem.guardarInformacion();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            StdOut.println("Has calificacado el libro " + bookSearched.getTitulo() + " con " + calification + " estrellas");
+            break;
         }
 
     }

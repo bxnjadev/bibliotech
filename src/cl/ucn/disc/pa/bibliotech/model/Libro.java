@@ -64,6 +64,9 @@ public final class Libro {
         this.categoria = categoria;
 
         this.inUse = false;
+        this.greats = new Integer[0];
+        this.members = new Integer[0];
+        System.out.println("AAAA");
     }
 
     /**
@@ -95,8 +98,17 @@ public final class Libro {
     }
 
     public void rankBook(int calification, int partnerId) {
-        Utils.append(greats, calification);
-        Utils.append(members, partnerId);
+
+        if (greats == null) {
+            System.out.println("Es null greats");
+        }
+
+        if (members == null) {
+            System.out.println("Es null members");
+        }
+
+        greats = Utils.append(greats, calification);
+        members = Utils.append(members, partnerId);
     }
 
     public boolean inUse() {
@@ -123,6 +135,10 @@ public final class Libro {
 
         int finalCalification;
         int sumCalification = 0;
+
+        if (greats.length == 0) {
+            return -1;
+        }
 
         for (int calification : greats) {
             sumCalification = calification + sumCalification;
