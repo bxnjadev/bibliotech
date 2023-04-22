@@ -237,6 +237,15 @@ public final class Main {
                 break;
             }
 
+            int calification = StdIn.readInt();
+
+            if (!(0 < calification && calification < 6)) {
+                StdOut.println("Lo siento calificación no valida, recuerda que debes ");
+                break;
+            }
+
+            bookSearched.
+
         }
 
     }

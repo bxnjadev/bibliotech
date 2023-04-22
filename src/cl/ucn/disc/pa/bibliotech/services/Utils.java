@@ -48,7 +48,13 @@ public final class Utils {
     }
 
     public static <T> T[] removeElement(T[] array, T object) {
-        return null;
+
+        List<T> list = new ArrayList<>();
+
+        Collections.addAll(list, array);
+        list.remove(object);
+
+        return list.toArray(array);
     }
 
     /**

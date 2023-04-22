@@ -154,6 +154,10 @@ public final class Sistema {
 
     }
 
+    public Socio getPartnerLogged() {
+        return socio;
+    }
+
     /**
      * Obtiene un String que representa el listado completo de libros disponibles.
      *
@@ -222,9 +226,9 @@ public final class Sistema {
 
     }
 
-    public String obtenerDatosSocioLogeado(int partnerNumber) {
+    public String obtenerDatosSocioLogeado() {
 
-        Socio socio = getPartner(partnerNumber);
+        Socio socio = getPartnerLogged();
 
         return "Nombre: " + socio.getNombreCompleto() + "\n"
                 + "Correo Electronico: " + socio.getCorreoElectronico();

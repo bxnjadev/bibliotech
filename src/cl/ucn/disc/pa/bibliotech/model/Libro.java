@@ -32,7 +32,9 @@ public final class Libro {
     private String categoria;
 
     private int[] greats;
-    
+
+    private int[] members;
+
     /**
      * The Constructor.
      *
@@ -85,4 +87,13 @@ public final class Libro {
     public String getCategoria() {
         return this.categoria;
     }
+
+    public void rankBook(int calification, int partnerId) {
+        
+    }
+
+    public void unRankBook(int partnerId) {
+
+    }
+
 }
