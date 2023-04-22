@@ -61,20 +61,20 @@ public final class Socio {
     public Socio(String nombre, String apellido, String correo, int numeroDeSocio, String clave) {
 
 
-        // TODO: agregar validacion
+        Utils.validarNombreOApellido(nombre);
         this.nombre = nombre;
 
-        // TODO: agregar validacion
+        Utils.validarNombreOApellido(apellido);
         this.apellido = apellido;
 
         // metodo estatico para validacion de email.
         Utils.validarEmail(correo);
         this.correo = correo;
 
-        // TODO: agregar validacion
+        Utils.validarNumeroSocio(numeroDeSocio);
         this.numeroDeSocio = numeroDeSocio;
 
-        // TODO: agregar validacion
+        Utils.validarClave(clave);
         this.clave = clave;
     }
 

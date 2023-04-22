@@ -97,13 +97,8 @@ public final class Utils {
 
         int longitudClave = clave.length();
 
-        if (longitudClave < 4) {
-            throw new IllegalArgumentException("La clave es muy corta");
-        }
-
-        if (longitudClave > 20) {
-            throw new IllegalArgumentException("La clave es muy larga");
-        }
+        validarLongitud(clave, 3, 20,
+                "La clave es muy larga ", "La clave es muy corta");
 
         boolean contieneNumeros = false;
 
@@ -121,6 +116,38 @@ public final class Utils {
         }
 
 
+    }
+
+    public static void validarLongitud(String valor, int minimo, int maximo, String mensajeErrorMaximo,
+                                       String mensajeErrorMinimo) {
+
+        int longitud = valor.length();
+
+        if (maximo > longitud) {
+            throw new IllegalArgumentException(mensajeErrorMaximo);
+        }
+
+        if (longitud < minimo) {
+            throw new IllegalArgumentException(mensajeErrorMinimo);
+        }
+
+    }
+
+    public static void validarNombreOApellido(String valor) {
+
+        if (valor == null || valor.isEmpty()) {
+            throw new IllegalArgumentException("El nombre o apellido no pueden ser nulos.");
+        }
+
+        validarLongitud(valor, 2, 12,
+                "La clave es muy larga ", "La clave es muy corta");
+
+    }
+
+    public static void validarNumeroSocio(int numeroSocio) {
+        if (numeroSocio < 0) {
+            throw new IllegalArgumentException("El número de socio debe ser negativo");
+        }
     }
 
 }

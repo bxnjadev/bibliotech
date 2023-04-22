@@ -154,13 +154,13 @@ public final class Main {
 
         Socio socio = bibliotechSystem.getSocioLogeado();
 
-        if (!socio.hasBook(isbn)) {
+        if (!socio.tieneLibro(isbn)) {
             StdOut.println("Lo siento no tienes este libro");
             return;
         }
 
         libroBuscado.sacarDeUso();
-        socio.deleteBook(libroBuscado);
+        socio.borrarLibro(libroBuscado);
 
         StdOut.println("Has devuelto el libro!");
 
@@ -216,7 +216,7 @@ public final class Main {
 
         String claveIngresada = StdIn.readLine();
 
-        String clave = socio.getPassword();
+        String clave = socio.getClave();
         return !clave.equals(claveIngresada);
     }
 
