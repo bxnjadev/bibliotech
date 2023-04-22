@@ -129,7 +129,7 @@ public final class Socio {
     }
 
     public void deleteBook(Libro book) {
-        Utils.removeElement(this.librosEnPrestamo, book);
+        librosEnPrestamo = Utils.removeElement(this.librosEnPrestamo, book);
     }
 
     /**
@@ -146,6 +146,19 @@ public final class Socio {
         librosEnPrestamo = Utils.append(this.librosEnPrestamo, libro);
 
         StdOut.println(librosEnPrestamo.length);
+    }
+
+    public boolean hasBook(String isbn) {
+        boolean hasBook = false;
+
+        for (Libro libro : librosEnPrestamo) {
+            if (libro.getIsbn().equals(isbn)) {
+                hasBook = true;
+                break;
+            }
+        }
+
+        return hasBook;
     }
 
 }

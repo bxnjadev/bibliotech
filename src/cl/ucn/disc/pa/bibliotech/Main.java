@@ -120,6 +120,40 @@ public final class Main {
         }
     }
 
+    private static void openMenuReturnBook(Sistema bibliotechSystem) {
+
+        StdOut.println("Bienvenido al sistema de devolución de libros: ");
+        StdOut.println("Por favor ingresa el ISBN del libro que deseas devolver: ");
+
+        String isbn = StdIn.readLine();
+
+        Libro bookSearched = bibliotechSystem.buscarLibro(isbn);
+
+        if (bookSearched == null) {
+            StdOut.println("Lo siento este libro no existe");
+            return;
+        }
+
+        Socio partner = bibliotechSystem.getParnerLogged();
+
+        if (!partner.hasBook(isbn)) {
+            StdOut.println("Lo siento no tienes este libro");
+            return;
+        }
+
+        bookSearched.updateAsNotUsed();
+        partner.deleteBook(bookSearched);
+
+        StdOut.println("Has devuelto el libro!");
+
+        try {
+            bibliotechSystem.guardarInformacion();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private static void editarInformacion(Sistema sistema, int partnerNumber) {
 
         String opcion = null;

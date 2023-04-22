@@ -116,6 +116,10 @@ public final class Sistema {
         return socios[partnerId - 1];
     }
 
+    public Socio getParnerLogged() {
+        return socio;
+    }
+
     /**
      * Cierra la session del Socio.
      */

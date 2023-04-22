@@ -4,7 +4,15 @@
     "apellido": "Doe",
     "numeroDeSocio": 1,
     "password": "benja",
-    "librosEnPrestamo": []
+    "librosEnPrestamo": [
+      {
+        "isbn": "1491910771",
+        "titulo": "Head First Java: A Brain-Friendly Guide",
+        "autor": " Kathy Sierra",
+        "categoria": "Programming Languages",
+        "inUse": true
+      }
+    ]
   },
   {
     "nombre": "Juan",
