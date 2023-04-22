@@ -120,6 +120,10 @@ public final class Socio {
         return this.password;
     }
 
+    public Libro[] getLibrosEnPrestamo() {
+        return librosEnPrestamo;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -130,6 +134,8 @@ public final class Socio {
 
     public void deleteBook(Libro book) {
         librosEnPrestamo = Utils.removeElement(this.librosEnPrestamo, book);
+
+        System.out.println("a: " + librosEnPrestamo.length);
     }
 
     /**

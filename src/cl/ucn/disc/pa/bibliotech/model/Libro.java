@@ -111,6 +111,19 @@ public final class Libro {
         members = Utils.append(members, partnerId);
     }
 
+    public int partnerHasRanked(int partnerId) {
+        for (int i = 0; i < members.length; i++) {
+
+            int anyId = members[i];
+
+            if (anyId == partnerId) {
+                return i;
+            }
+
+        }
+        return -1;
+    }
+
     public boolean inUse() {
         return inUse;
     }
@@ -153,6 +166,15 @@ public final class Libro {
     }
 
     public void unRankBook(int partnerId) {
+
+        int index = partnerHasRanked(partnerId);
+
+        if (index == -1) {
+            throw new IllegalArgumentException("Lo siento este libro no lo has calificado");
+        }
+
+        Utils.removeElement(members, members[index]);
+        Utils.removeElement(greats, greats[index]);
 
     }
 

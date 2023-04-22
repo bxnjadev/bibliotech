@@ -51,8 +51,19 @@ public final class Utils {
 
         List<T> list = new ArrayList<>();
 
+        System.out.println("l: " + array.length);
+
         Collections.addAll(list, array);
+
+        System.out.println("l r: " + list.size());
+
         list.remove(object);
+
+        System.out.println("l: " + list.size());
+
+        for (Object otherObject : list) {
+            System.out.println(otherObject.toString());
+        }
 
         return list.toArray(array);
     }

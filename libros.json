@@ -5,12 +5,12 @@
     "autor": " Kathy Sierra",
     "categoria": "Programming Languages",
     "greats": [
-      5
+      null
     ],
     "members": [
-      1
+      null
     ],
-    "inUse": true
+    "inUse": false
   },
   {
     "isbn": "1491910771",

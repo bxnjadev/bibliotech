@@ -91,8 +91,9 @@ public final class Main {
                     [3] Calificar libro
                     [4] Devolver un libro
                     [5] Mostrar información de un libro
+                    [6] Remover una calificación a un libro
                                         
-                    [4] Cerrar sesion
+                    [7] Cerrar sesion
                     """);
 
             StdOut.print("Escoja una opcion: ");
@@ -104,7 +105,8 @@ public final class Main {
                 case "3" -> rankBook(sistema, partnerNumber);
                 case "4" -> openMenuReturnBook(sistema);
                 case "5" -> showDataBook(sistema);
-                case "6" -> sistema.cerrarSession();
+                case "6" -> unRankBook(sistema);
+                case "7" -> sistema.cerrarSession();
                 default -> StdOut.println("Opcion no valida, intente nuevamente");
             }
         }
@@ -294,6 +296,34 @@ public final class Main {
             StdOut.println("Has calificacado el libro " + bookSearched.getTitulo() + " con " + calification + " estrellas");
             break;
         }
+
+    }
+
+    public static void unRankBook(Sistema bibliotechSystem) {
+
+        StdOut.println("Ingresa el isbn del libro que quieras quitar una calificación: ");
+        String isbn = StdIn.readLine();
+
+        Libro bookSearched = bibliotechSystem.buscarLibro(isbn);
+
+        if (bookSearched == null) {
+            StdOut.println("Lo siento libro no encontrado");
+            return;
+        }
+
+        Socio partner = bibliotechSystem.getParnerLogged();
+
+        bookSearched.unRankBook(
+                partner.getNumeroDeSocio()
+        );
+
+        try {
+            bibliotechSystem.guardarInformacion();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StdOut.println("Has removido esa calificación ");
 
     }
 
