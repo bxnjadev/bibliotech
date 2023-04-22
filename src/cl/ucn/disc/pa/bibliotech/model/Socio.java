@@ -174,9 +174,12 @@ public final class Socio {
      */
 
     public boolean tieneLibro(String isbn) {
+
+        //Se inicaliza en falso
         boolean tienelibro = false;
 
         for (Libro libro : librosEnPrestamo) {
+            //Se verifica si alguno de esos libros es igual
             if (libro.getIsbn().equals(isbn)) {
                 tienelibro = true;
                 break;
