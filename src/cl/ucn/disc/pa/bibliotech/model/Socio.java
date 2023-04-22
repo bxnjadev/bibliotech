@@ -128,7 +128,7 @@ public final class Socio {
     }
 
     public void deleteBook(Libro book) {
-        
+        Utils.removeElement(this.librosEnPrestamo, book);
     }
 
     /**
