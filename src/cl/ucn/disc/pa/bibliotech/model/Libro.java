@@ -33,9 +33,9 @@ public final class Libro {
      */
     private String categoria;
 
-    private Integer[] greats;
+    private Integer[] greats = new Integer[0];
 
-    private Integer[] members;
+    private Integer[] members = new Integer[0];
 
     private boolean inUse;
 
@@ -109,6 +109,14 @@ public final class Libro {
 
     public void updateAsNotUsed() {
         this.inUse = false;
+    }
+
+    public Integer[] getGreats() {
+        return this.greats;
+    }
+
+    public Integer[] getMembers() {
+        return this.members;
     }
 
     public int getFinalCalification() {

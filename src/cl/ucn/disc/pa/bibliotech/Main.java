@@ -89,6 +89,8 @@ public final class Main {
                     [1] Prestamo de un libro
                     [2] Editar información
                     [3] Calificar libro
+                    [4] Devolver un libro
+                    [5] Mostrar información de un libro
                                         
                     [4] Cerrar sesion
                     """);
@@ -100,7 +102,9 @@ public final class Main {
                 case "1" -> menuPrestamo(sistema);
                 case "2" -> editarInformacion(sistema, partnerNumber);
                 case "3" -> rankBook(sistema, partnerNumber);
-                case "4" -> sistema.cerrarSession();
+                case "4" -> openMenuReturnBook(sistema);
+                case "5" -> showDataBook(sistema);
+                case "6" -> sistema.cerrarSession();
                 default -> StdOut.println("Opcion no valida, intente nuevamente");
             }
         }
@@ -281,6 +285,34 @@ public final class Main {
             bookSearched.rankBook(calification, partnerNumber);
             StdOut.println("Has calificacado el libro " + bookSearched.getTitulo() + " con " + calification + " estrellas");
 
+        }
+
+    }
+
+    public static void showDataBook(Sistema bibliotechSystem) {
+
+        StdOut.println("Ingresa el isbn del libro del que quieras ver su información: ");
+        String isbn = StdIn.readLine();
+
+        Libro bookSearched = bibliotechSystem.buscarLibro(isbn);
+
+        if (bookSearched == null) {
+            StdOut.println("Lo siento, libro no encontrado");
+            return;
+        }
+
+
+        StdOut.println("Titulo: " + bookSearched.getTitulo());
+        StdOut.println("Autor: " + bookSearched.getAutor());
+        StdOut.println("ISBN: " + bookSearched.getIsbn());
+        StdOut.println("Categoria: " + bookSearched.getCategoria());
+
+        int finalCalification = bookSearched.getFinalCalification();
+
+        if (finalCalification == -1) {
+            StdOut.println("Calificación: No se ha calificado este libro");
+        } else {
+            StdOut.println("Calificacion: " + bookSearched.getFinalCalification());
         }
 
     }
