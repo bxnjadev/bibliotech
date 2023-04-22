@@ -79,50 +79,70 @@ public final class Sistema {
     /**
      * Activa (inicia sesion) de un socio en el sistema.
      *
-     * @param numeroDeSocio a utilizar.
-     * @param contrasenia   a validar.
+     * @param idSocio        a utilizar.
+     * @param claveIngresada a validar.
      */
-    public void iniciarSession(final int numeroDeSocio, final String passwordEntered) {
+    public void iniciarSession(final int idSocio, final String claveIngresada) {
 
         // el numero de socio siempre es positivo.
 
-        if (numeroDeSocio <= 0) {
-            trhowIllegalException("El número de socio no es valido!");
+        if (idSocio <= 0) {
+            lanzarExcepcion("El número de socio no es valido!");
         }
 
-        Socio partner = getPartner(numeroDeSocio);
+        Socio socio = getSocio(idSocio);
 
-        if (partner == null) {
-            trhowIllegalException("El socio no existe");
+        if (socio == null) {
+            lanzarExcepcion("El socio no existe");
             return;
         }
 
-        if (!passwordEntered.equals(partner.getPassword())) {
+        if (!claveIngresada.equals(socio.getPassword())) {
             StdOut.println("La contraseña no es correcta");
-            trhowIllegalException("La contraseña no es correcta");
+            lanzarExcepcion("La contraseña no es correcta");
             return;
         }
 
-        this.socio = partner;
+        this.socio = socio;
         StdOut.println("Logeado! ");
 
     }
 
-    private void trhowIllegalException(String message) {
-        throw new IllegalArgumentException(message);
+    /**
+     * Lanzar un IllegalArgumentException
+     *
+     * @param mensaje el mensaje de la excepcion
+     */
+
+    private void lanzarExcepcion(String mensaje) {
+        throw new IllegalArgumentException(mensaje);
     }
 
-    public Socio getPartner(int partnerId) {
-        return socios[partnerId - 1];
+    /**
+     * Obtiene un socio a base su id
+     *
+     * @param idSocio la id del socio
+     * @return el socio
+     */
+
+    public Socio getSocio(int idSocio) {
+        return socios[idSocio - 1];
     }
 
-    public Socio getParnerLogged() {
+    /**
+     * Obtiene la instancia del socio logeado
+     *
+     * @return el socio
+     */
+
+    public Socio getSocioLogeado() {
         return socio;
     }
 
     /**
      * Cierra la session del Socio.
      */
+
     public void cerrarSession() {
         this.socio = null;
     }
@@ -162,10 +182,6 @@ public final class Sistema {
 
     }
 
-    public Socio getPartnerLogged() {
-        return socio;
-    }
-
     /**
      * Obtiene un String que representa el listado completo de libros disponibles.
      *
@@ -203,18 +219,30 @@ public final class Sistema {
         return null;
     }
 
-    public void updatePassword(String newPassword) {
+    /**
+     * Actualiza la clave del socio logeado y luego guarda
+     *
+     * @param clave la clave que se actualizara
+     */
+
+    public void actualizarClaveYGuardar(String clave) {
         try {
-            socio.setPassword(newPassword);
+            socio.setPassword(clave);
             guardarInformacion();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateMail(String newMail) {
+    /**
+     * Actualiza el correo del socio logeado y luego guarda
+     *
+     * @param correo el correo que se actualizara
+     */
+
+    public void actualizarCorreoYGuardar(String correo) {
         try {
-            socio.setMail(newMail);
+            socio.setMail(correo);
             guardarInformacion();
         } catch (IOException e) {
             e.printStackTrace();
@@ -253,9 +281,15 @@ public final class Sistema {
 
     }
 
+    /**
+     * Obtiene los datos del socio logeado
+     *
+     * @return
+     */
+
     public String obtenerDatosSocioLogeado() {
 
-        Socio socio = getPartnerLogged();
+        Socio socio = getSocioLogeado();
 
         return "Nombre: " + socio.getNombreCompleto() + "\n"
                 + "Correo Electronico: " + socio.getCorreoElectronico();
