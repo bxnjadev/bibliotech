@@ -33,11 +33,11 @@ public final class Libro {
      */
     private String categoria;
 
-    private Integer[] greats = new Integer[0];
+    private Integer[] calificaciones = new Integer[0];
 
-    private Integer[] members = new Integer[0];
+    private Integer[] miembros = new Integer[0];
 
-    private boolean inUse;
+    private boolean enUso;
 
     /**
      * The Constructor.
@@ -63,9 +63,9 @@ public final class Libro {
         // TODO: Agregar validacion
         this.categoria = categoria;
 
-        this.inUse = false;
-        this.greats = new Integer[0];
-        this.members = new Integer[0];
+        this.enUso = false;
+        this.calificaciones = new Integer[0];
+        this.miembros = new Integer[0];
         System.out.println("AAAA");
     }
 
@@ -97,26 +97,24 @@ public final class Libro {
         return this.categoria;
     }
 
-    public void rankBook(int calification, int partnerId) {
+    /**
+     * Califica el libro
+     *
+     * @param calificacion la calificacion que es del 0 al 5
+     * @param idSocio      la id del socio que lo califico
+     */
 
-        if (greats == null) {
-            System.out.println("Es null greats");
-        }
-
-        if (members == null) {
-            System.out.println("Es null members");
-        }
-
-        greats = Utils.append(greats, calification);
-        members = Utils.append(members, partnerId);
+    public void calificarLibro(int calificacion, int idSocio) {
+        calificaciones = Utils.append(calificaciones, calificacion);
+        miembros = Utils.append(miembros, idSocio);
     }
 
-    public int partnerHasRanked(int partnerId) {
-        for (int i = 0; i < members.length; i++) {
+    public int partnerHasRanked(int idSocio) {
+        for (int i = 0; i < miembros.length; i++) {
 
-            int anyId = members[i];
+            int algunaId = miembros[i];
 
-            if (anyId == partnerId) {
+            if (algunaId == idSocio) {
                 return i;
             }
 
@@ -124,57 +122,57 @@ public final class Libro {
         return -1;
     }
 
-    public boolean inUse() {
-        return inUse;
+    public boolean enUso() {
+        return enUso;
     }
 
-    public void updateAsUsed() {
-        this.inUse = true;
+    public void marcarComoEnUso() {
+        this.enUso = true;
     }
 
-    public void updateAsNotUsed() {
-        this.inUse = false;
+    public void sacarDeUso() {
+        this.enUso = false;
     }
 
-    public Integer[] getGreats() {
-        return this.greats;
+    public Integer[] getCalificaciones() {
+        return this.calificaciones;
     }
 
-    public Integer[] getMembers() {
-        return this.members;
+    public Integer[] getMiembros() {
+        return this.miembros;
     }
 
     public int getFinalCalification() {
 
-        int finalCalification;
-        int sumCalification = 0;
+        int calificacionFinal;
+        int sumaCalificacion = 0;
 
-        if (greats.length == 0) {
+        if (miembros.length == 0) {
             return -1;
         }
 
-        for (int calification : greats) {
-            sumCalification = calification + sumCalification;
+        for (int calificacion : miembros) {
+            sumaCalificacion = calificacion + sumaCalificacion;
         }
 
-        if (sumCalification == 0) {
+        if (sumaCalificacion == 0) {
             return -1;
         }
 
-        finalCalification = sumCalification / greats.length;
-        return finalCalification;
+        calificacionFinal = sumaCalificacion / calificaciones.length;
+        return calificacionFinal;
     }
 
-    public void unRankBook(int partnerId) {
+    public void removerCalificacion(int idSocio) {
 
-        int index = partnerHasRanked(partnerId);
+        int index = partnerHasRanked(idSocio);
 
         if (index == -1) {
             throw new IllegalArgumentException("Lo siento este libro no lo has calificado");
         }
 
-        Utils.removeElement(members, members[index]);
-        Utils.removeElement(greats, greats[index]);
+        Utils.removeElement(miembros, miembros[index]);
+        Utils.removeElement(calificaciones, calificaciones[index]);
 
     }
 

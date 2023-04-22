@@ -97,7 +97,7 @@ public final class Sistema {
             return;
         }
 
-        if (!claveIngresada.equals(socio.getPassword())) {
+        if (!claveIngresada.equals(socio.getClave())) {
             StdOut.println("La contraseña no es correcta");
             lanzarExcepcion("La contraseña no es correcta");
             return;
@@ -166,14 +166,14 @@ public final class Sistema {
             throw new IllegalArgumentException("Libro con isbn " + isbn + " no existe o no se encuentra disponible.");
         }
 
-        if (libro.inUse()) {
+        if (libro.enUso()) {
             throw new IllegalArgumentException("Lo siento el libro está en uso");
         }
 
         // agrego el libro al socio.
         this.socio.agregarLibro(libro);
 
-        libro.updateAsUsed();
+        libro.marcarComoEnUso();
 
         // se actualiza la informacion de los archivos
         this.guardarInformacion();
@@ -227,7 +227,7 @@ public final class Sistema {
 
     public void actualizarClaveYGuardar(String clave) {
         try {
-            socio.setPassword(clave);
+            socio.setClave(clave);
             guardarInformacion();
         } catch (IOException e) {
             e.printStackTrace();
@@ -242,7 +242,7 @@ public final class Sistema {
 
     public void actualizarCorreoYGuardar(String correo) {
         try {
-            socio.setMail(correo);
+            socio.setCorreo(correo);
             guardarInformacion();
         } catch (IOException e) {
             e.printStackTrace();
@@ -284,7 +284,7 @@ public final class Sistema {
     /**
      * Obtiene los datos del socio logeado
      *
-     * @return
+     * @return una cadena de texto que anida los datos del socio logeado
      */
 
     public String obtenerDatosSocioLogeado() {

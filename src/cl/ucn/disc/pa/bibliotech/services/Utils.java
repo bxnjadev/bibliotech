@@ -47,6 +47,15 @@ public final class Utils {
         return theList.toArray(theStaticArray);
     }
 
+    /**
+     * remove theObject to theStaticArray
+     *
+     * @param array  the array
+     * @param object the object to append
+     * @param <T>    generic use
+     * @return the static array
+     */
+
     public static <T> T[] removeElement(T[] array, T object) {
 
         List<T> list = new ArrayList<>();
@@ -79,4 +88,39 @@ public final class Utils {
             throw new IllegalArgumentException("Correo Electronico no valido: " + email);
         }
     }
+
+    public static void validarClave(String clave) {
+
+        if (clave == null || clave.isEmpty()) {
+            throw new IllegalArgumentException("La clave está vacia.");
+        }
+
+        int longitudClave = clave.length();
+
+        if (longitudClave < 4) {
+            throw new IllegalArgumentException("La clave es muy corta");
+        }
+
+        if (longitudClave > 20) {
+            throw new IllegalArgumentException("La clave es muy larga");
+        }
+
+        boolean contieneNumeros = false;
+
+        for (int i = 0; i < clave.length(); i++) {
+            char caracter = clave.charAt(i);
+
+            if (Character.isDigit(caracter)) {
+                contieneNumeros = true;
+            }
+
+        }
+
+        if (!contieneNumeros) {
+            throw new IllegalArgumentException("La clave debe contener números");
+        }
+
+
+    }
+
 }

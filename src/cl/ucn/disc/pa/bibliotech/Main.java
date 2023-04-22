@@ -152,14 +152,14 @@ public final class Main {
             return;
         }
 
-        Socio socio = bibliotechSystem.getParnerLogged();
+        Socio socio = bibliotechSystem.getSocioLogeado();
 
         if (!socio.hasBook(isbn)) {
             StdOut.println("Lo siento no tienes este libro");
             return;
         }
 
-        libroBuscado.updateAsNotUsed();
+        libroBuscado.sacarDeUso();
         socio.deleteBook(libroBuscado);
 
         StdOut.println("Has devuelto el libro!");
@@ -196,8 +196,8 @@ public final class Main {
             opcion = StdIn.readLine();
 
             switch (opcion) {
-                case "1" -> editMail(sistema, partnerNumber);
-                case "2" -> updatePassword(sistema, partnerNumber);
+                case "1" -> editMail(sistema);
+                case "2" -> updatePassword(sistema);
                 case "3" -> StdOut.println("Volviendo al menú anterior...");
                 default -> StdOut.println("Opcion no valida, intente nuevamente");
             }
@@ -224,15 +224,14 @@ public final class Main {
      * Abrir el menu de cambio de contraseña
      *
      * @param sistema el sistema de bibliotech
-     * @param idSocio la id del socio
      */
 
-    private static void updatePassword(Sistema sistema, int idSocio) {
+    private static void updatePassword(Sistema sistema) {
 
         StdOut.println("" +
                 "[*] Has accedido al sistema de cambio de contraseña de BiblioTech");
 
-        Socio socio = sistema.getPartner(idSocio);
+        Socio socio = sistema.getSocioLogeado();
 
         if (verificarClave(socio)) {
             StdOut.println("Lo siento, la contraseña ingresada no es valida");
@@ -247,7 +246,7 @@ public final class Main {
                 String nuevaClaveRepetida = StdIn.readLine();
 
                 if (nuevaClave.equals(nuevaClaveRepetida)) {
-                    sistema.updatePassword(nuevaClave);
+                    sistema.actualizarClaveYGuardar(nuevaClave);
                     break;
                 }
 
@@ -262,36 +261,35 @@ public final class Main {
      * Abrir el menu de edición de correo
      *
      * @param sistema el sistema de bibliotech
-     * @param socioId la id del socio
      */
 
-    private static void editMail(Sistema sistema, int socioId) {
+    private static void editMail(Sistema sistema) {
 
         StdOut.println("" +
                 "[*] Has accedido al sistema de cambio de correo electronico de BiblioTech" +
                 "" +
                 "Contraseña antigua: ");
 
-        Socio partner = sistema.getPartnerLogged();
+        Socio socio = sistema.getSocioLogeado();
 
-        if (verificarClave(partner)) {
+        if (verificarClave(socio)) {
             StdOut.println("La contrase no es correcta ");
         } else {
 
             while (true) {
 
-                String oldMail = partner.getCorreoElectronico();
+                String correoViejo = socio.getCorreoElectronico();
 
                 StdOut.println("Ingresa un nuevo correo: ");
-                String newMail = StdIn.readLine();
+                String nuevoCorreo = StdIn.readLine();
 
-                if (oldMail.equals(newMail)) {
+                if (!correoViejo.equals(nuevoCorreo)) {
                     StdOut.println("Este es el correo que ya tienes");
                 } else {
 
-                    Utils.validarEmail(newMail);
-                    sistema.updateMail(newMail);
-                    StdOut.println("Has cambiado el correo hasta " + newMail);
+                    Utils.validarEmail(nuevoCorreo);
+                    sistema.actualizarCorreoYGuardar(nuevoCorreo);
+                    StdOut.println("Has cambiado el correo hasta " + nuevoCorreo);
                     break;
                 }
 
@@ -332,7 +330,7 @@ public final class Main {
                 break;
             }
 
-            libroBuscado.rankBook(calificacion, socioId);
+            libroBuscado.calificarLibro(calificacion, socioId);
 
             try {
                 sistema.guardarInformacion();
@@ -364,9 +362,9 @@ public final class Main {
             return;
         }
 
-        Socio partner = sistema.getParnerLogged();
+        Socio partner = sistema.getSocioLogeado();
 
-        libroBuscado.unRankBook(
+        libroBuscado.removerCalificacion(
                 partner.getNumeroDeSocio()
         );
 

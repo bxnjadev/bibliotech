@@ -32,7 +32,7 @@ public final class Socio {
     /**
      * Email del socio.
      */
-    private String mail;
+    private String correo;
 
     /**
      * Numero del socio.
@@ -40,9 +40,9 @@ public final class Socio {
     private int numeroDeSocio;
 
     /**
-     * Contrasenia del socio.
+     * Clave del socio.
      */
-    private String password;
+    private String clave;
 
     /**
      * Libros que el Socio tiene en prestamo (maximo 10).
@@ -52,13 +52,13 @@ public final class Socio {
     /**
      * The Constructor.
      *
-     * @param nombre            del socio.
-     * @param apellido          del socio.
-     * @param correoElectronico del socio.
-     * @param numeroDeSocio     del socio.
-     * @param contrasenia       del socio.
+     * @param nombre        del socio.
+     * @param apellido      del socio.
+     * @param correo        del socio.
+     * @param numeroDeSocio del socio.
+     * @param clave         del socio.
      */
-    public Socio(String nombre, String apellido, String mail, int numeroDeSocio, String contrasenia) {
+    public Socio(String nombre, String apellido, String correo, int numeroDeSocio, String clave) {
 
 
         // TODO: agregar validacion
@@ -68,14 +68,14 @@ public final class Socio {
         this.apellido = apellido;
 
         // metodo estatico para validacion de email.
-        Utils.validarEmail(mail);
-        this.mail = mail;
+        Utils.validarEmail(correo);
+        this.correo = correo;
 
         // TODO: agregar validacion
         this.numeroDeSocio = numeroDeSocio;
 
         // TODO: agregar validacion
-        this.password = contrasenia;
+        this.clave = clave;
     }
 
     /**
@@ -103,7 +103,7 @@ public final class Socio {
      * @return el correo electronico del Socio.
      */
     public String getCorreoElectronico() {
-        return this.mail;
+        return this.correo;
     }
 
     /**
@@ -114,25 +114,37 @@ public final class Socio {
     }
 
     /**
-     * @return la contrasenia del Socio.
+     * @return la clave del Socio.
      */
-    public String getPassword() {
-        return this.password;
+    public String getClave() {
+        return this.clave;
     }
 
     public Libro[] getLibrosEnPrestamo() {
         return librosEnPrestamo;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    /**
+     * Setea un nuevo correo para el socio
+     *
+     * @param correo
+     */
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
-    public void deleteBook(Libro book) {
+    /**
+     * Borra un libro que tiene un socio
+     *
+     * @param book el libro
+     */
+
+    public void borrarLibro(Libro book) {
         librosEnPrestamo = Utils.removeElement(this.librosEnPrestamo, book);
 
         System.out.println("a: " + librosEnPrestamo.length);
@@ -154,17 +166,24 @@ public final class Socio {
         StdOut.println(librosEnPrestamo.length);
     }
 
-    public boolean hasBook(String isbn) {
-        boolean hasBook = false;
+    /**
+     * Verifica si el socio posee un libro dado un isbn
+     *
+     * @param isbn el isbn del libro
+     * @return devuelve true si tiene el libro y false si no lo tiene
+     */
+
+    public boolean tieneLibro(String isbn) {
+        boolean tienelibro = false;
 
         for (Libro libro : librosEnPrestamo) {
             if (libro.getIsbn().equals(isbn)) {
-                hasBook = true;
+                tienelibro = true;
                 break;
             }
         }
 
-        return hasBook;
+        return tienelibro;
     }
 
 }
