@@ -1,7 +1,41 @@
 @startuml
+!pragma layout smetana
 left to right direction
 skin rose
 
-' TODO: Add the class model
+
+class Libro {
+    - isbn
+    - titulo
+    - autor
+    - categoria
+    - greats
+    - members
+    - inUse
+
+    getIsbn() : String
+    getTitulo() : String
+    getAutor() : String
+    getCategoria() : String
+    getGreats() : int[]
+    getMembers() : int[]
+    inUse() : boolean
+    getFinalCalification() : int
+    updateAsUsted() : void
+    updateAsNotUsted() : void
+
+}
+
+class Socio {
+}
+
+class Sistema {
+}
+
+class Utils {
+}
+
+class Main {
+}
 
 @enduml
