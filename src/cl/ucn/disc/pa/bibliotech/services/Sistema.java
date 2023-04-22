@@ -103,8 +103,6 @@ public final class Sistema {
             return;
         }
 
-        this.socio = socios[numeroDeSocio - 1];
-
         this.socio = partner;
         StdOut.println("Logeado! ");
 
@@ -199,6 +197,25 @@ public final class Sistema {
         return null;
     }
 
+    public void updatePassword(String newPassword) {
+        try {
+            socio.setPassword(newPassword);
+            guardarInformacion();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateMail(String newMail) {
+        try {
+            socio.setMail(newMail);
+            guardarInformacion();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      * Lee los archivos libros.json y socios.json.
      *
@@ -216,7 +233,7 @@ public final class Sistema {
      *
      * @throws IOException en caso de algun error.
      */
-    private void guardarInformacion() throws IOException {
+    public void guardarInformacion() throws IOException {
 
         // guardo los socios.
         try (FileWriter writer = new FileWriter("socios.json")) {

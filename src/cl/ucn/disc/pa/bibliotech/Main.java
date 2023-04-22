@@ -99,7 +99,7 @@ public final class Main {
             switch (opcion) {
                 case "1" -> menuPrestamo(sistema);
                 case "2" -> editarInformacion(sistema, partnerNumber);
-                // case "3" -> TODO: Crear metodo de calificar libro.
+                case "3" -> rankBook(sistema, partnerNumber);
                 case "4" -> sistema.cerrarSession();
                 default -> StdOut.println("Opcion no valida, intente nuevamente");
             }
@@ -126,7 +126,7 @@ public final class Main {
         while (!Objects.equals(opcion, "3")) {
 
             StdOut.println("[*] Editar Perfil [*]");
-            StdOut.println(sistema.obtenerDatosSocioLogeado(partnerNumber));
+            StdOut.println(sistema.obtenerDatosSocioLogeado());
             StdOut.println("""               
                     [1] Editar correo Electronico
                     [2] Editar Contraseña
@@ -174,7 +174,7 @@ public final class Main {
                 String newPasswordRepeated = StdIn.readLine();
 
                 if (newPassword.equals(newPasswordRepeated)) {
-                    partner.setPassword(newPassword);
+                    bibliotechSystem.updatePassword(newPassword);
                     break;
                 }
 
@@ -210,7 +210,7 @@ public final class Main {
                 } else {
 
                     Utils.validarEmail(newMail);
-                    partner.setMail(newMail);
+                    bibliotechSystem.updateMail(newMail);
                     StdOut.println("Has cambiado el correo hasta " + newMail);
                     break;
                 }
