@@ -4,6 +4,8 @@
 
 package cl.ucn.disc.pa.bibliotech.model;
 
+import cl.ucn.disc.pa.bibliotech.services.Utils;
+
 /**
  * Clase que representa un Libro.
  *
@@ -31,9 +33,9 @@ public final class Libro {
      */
     private String categoria;
 
-    private int[] greats;
+    private Integer[] greats;
 
-    private int[] members;
+    private Integer[] members;
 
     /**
      * The Constructor.
@@ -89,7 +91,25 @@ public final class Libro {
     }
 
     public void rankBook(int calification, int partnerId) {
-        
+        Utils.append(greats, calification);
+        Utils.append(members, partnerId);
+    }
+
+    public int getFinalCalification() {
+
+        int finalCalification;
+        int sumCalification = 0;
+
+        for (int calification : greats) {
+            sumCalification = calification + sumCalification;
+        }
+
+        if (sumCalification == 0) {
+            return -1;
+        }
+
+        finalCalification = sumCalification / greats.length;
+        return finalCalification;
     }
 
     public void unRankBook(int partnerId) {
