@@ -5,6 +5,7 @@
 package cl.ucn.disc.pa.bibliotech.model;
 
 import cl.ucn.disc.pa.bibliotech.services.Utils;
+import edu.princeton.cs.stdlib.StdOut;
 
 /**
  * Clase que representa a un Socio.
@@ -142,7 +143,9 @@ public final class Socio {
             throw new IllegalArgumentException("El Socio ya tiene la maxima cantidad de libros en prestamo: " + NUMERO_LIBROS_MAXIMO);
         }
         // agrego el libro
-        Utils.append(this.librosEnPrestamo, libro);
+        librosEnPrestamo = Utils.append(this.librosEnPrestamo, libro);
+
+        StdOut.println(librosEnPrestamo.length);
     }
 
 }

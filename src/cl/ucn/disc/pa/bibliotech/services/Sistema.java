@@ -154,6 +154,8 @@ public final class Sistema {
         // se actualiza la informacion de los archivos
         this.guardarInformacion();
 
+        StdOut.println("Libro prestado... ");
+
     }
 
     public Socio getPartnerLogged() {
