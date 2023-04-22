@@ -100,12 +100,12 @@ public final class Main {
             opcion = StdIn.readLine();
 
             switch (opcion) {
-                case "1" -> menuPrestamo(sistema);
+                case "1" -> mostrarMenuPrestamo(sistema);
                 case "2" -> editarInformacion(sistema, partnerNumber);
-                case "3" -> rankBook(sistema, partnerNumber);
-                case "4" -> openMenuReturnBook(sistema);
-                case "5" -> showDataBook(sistema);
-                case "6" -> unRankBook(sistema);
+                case "3" -> calificarLibro(sistema, partnerNumber);
+                case "4" -> mostrarMenuDeDevueltaDeLibros(sistema);
+                case "5" -> mostrarLibro(sistema);
+                case "6" -> removerCalification(sistema);
                 case "7" -> sistema.cerrarSession();
                 default -> StdOut.println("Opcion no valida, intente nuevamente");
             }
@@ -160,7 +160,7 @@ public final class Main {
         }
 
         libroBuscado.updateAsNotUsed();
-        socio.deleteBook(bookSearched);
+        socio.deleteBook(libroBuscado);
 
         StdOut.println("Has devuelto el libro!");
 
@@ -386,7 +386,7 @@ public final class Main {
      * @param sistema el sistema de bibliotech
      */
 
-    public static void mostrarLirbo(Sistema sistema) {
+    public static void mostrarLibro(Sistema sistema) {
 
         StdOut.println("Ingresa el isbn del libro del que quieras ver su información: ");
         String isbn = StdIn.readLine();
