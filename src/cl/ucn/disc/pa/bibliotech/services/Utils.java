@@ -89,13 +89,17 @@ public final class Utils {
         }
     }
 
+    /**
+     * Valida una clave, en caso de no ser valida lanza una Exception.
+     *
+     * @param clave a validar
+     */
+
     public static void validarClave(String clave) {
 
         if (clave == null || clave.isEmpty()) {
             throw new IllegalArgumentException("La clave está vacia.");
         }
-
-        int longitudClave = clave.length();
 
         validarLongitud(clave, 3, 20,
                 "La clave es muy larga ", "La clave es muy corta");
@@ -118,6 +122,16 @@ public final class Utils {
 
     }
 
+    /**
+     * Realiza una validación de longitud de un String, en caso de no ser valida lanza una Exception.
+     *
+     * @param valor              el valor a validar
+     * @param minimo             el valor minimo de caracteres
+     * @param maximo             el valor máximo de caracteres
+     * @param mensajeErrorMaximo mensaje de error si se supera el número máximo de caracteres
+     * @param mensajeErrorMinimo mensaje de error si se supera el número mínimo de caracteres
+     */
+
     public static void validarLongitud(String valor, int minimo, int maximo, String mensajeErrorMaximo,
                                        String mensajeErrorMinimo) {
 
@@ -133,6 +147,12 @@ public final class Utils {
 
     }
 
+    /**
+     * Valida un nombre u apellido
+     *
+     * @param valor el nombre o apellido
+     */
+
     public static void validarNombreOApellido(String valor) {
 
         if (valor == null || valor.isEmpty()) {
@@ -143,6 +163,12 @@ public final class Utils {
                 "La clave es muy larga ", "La clave es muy corta");
 
     }
+
+    /**
+     * Valida el número de socio
+     *
+     * @param numeroSocio el número de socio
+     */
 
     public static void validarNumeroSocio(int numeroSocio) {
         if (numeroSocio < 0) {
