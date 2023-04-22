@@ -244,7 +244,8 @@ public final class Main {
                 break;
             }
 
-            bookSearched.
+            bookSearched.rankBook(calification, partnerNumber);
+            StdOut.println("Has calificacado el libro " + bookSearched.getTitulo() + " con " + calification + " estrellas");
 
         }
 

@@ -37,6 +37,8 @@ public final class Libro {
 
     private Integer[] members;
 
+    private boolean inUse;
+
     /**
      * The Constructor.
      *
@@ -60,6 +62,8 @@ public final class Libro {
 
         // TODO: Agregar validacion
         this.categoria = categoria;
+
+        this.inUse = false;
     }
 
     /**
@@ -93,6 +97,18 @@ public final class Libro {
     public void rankBook(int calification, int partnerId) {
         Utils.append(greats, calification);
         Utils.append(members, partnerId);
+    }
+
+    public boolean inUse() {
+        return inUse;
+    }
+
+    public void updateAsUsed() {
+        this.inUse = true;
+    }
+
+    public void updateAsNotUsed() {
+        this.inUse = false;
     }
 
     public int getFinalCalification() {

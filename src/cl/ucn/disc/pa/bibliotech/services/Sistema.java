@@ -144,10 +144,14 @@ public final class Sistema {
             throw new IllegalArgumentException("Libro con isbn " + isbn + " no existe o no se encuentra disponible.");
         }
 
+        if (libro.inUse()) {
+            throw new IllegalArgumentException("Lo siento el libro está en uso");
+        }
+
         // agrego el libro al socio.
         this.socio.agregarLibro(libro);
 
-        // TODO: eliminar el libro de los disponibles
+        libro.updateAsUsed();
 
         // se actualiza la informacion de los archivos
         this.guardarInformacion();
