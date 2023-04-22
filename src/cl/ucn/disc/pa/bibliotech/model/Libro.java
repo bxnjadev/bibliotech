@@ -31,8 +31,8 @@ public final class Libro {
      */
     private String categoria;
 
-    // TODO: Agregar la calificacion.
-
+    private int[] greats;
+    
     /**
      * The Constructor.
      *

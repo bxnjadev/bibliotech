@@ -103,6 +103,9 @@ public final class Sistema {
             return;
         }
 
+        this.socio = socios[numeroDeSocio - 1];
+
+        this.socio = partner;
         StdOut.println("Logeado! ");
 
     }

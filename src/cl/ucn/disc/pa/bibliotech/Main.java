@@ -221,7 +221,7 @@ public final class Main {
 
     }
 
-    private static void openMenuRankingBook(Sistema bibliotechSystem, int partnerNumber) {
+    private static void rankBook(Sistema bibliotechSystem, int partnerNumber) {
 
         StdOut.println("Bienvenido al sistema de calificaciones de BiblioTech ");
 
@@ -230,8 +230,12 @@ public final class Main {
             StdOut.println("Por favor escribe el ISBN del libro que deseas calificar: ");
             String isbn = StdIn.readLine();
 
-            Libro bookSearched = bibliotechSystem.b
+            Libro bookSearched = bibliotechSystem.buscarLibro(isbn);
 
+            if (bookSearched == null) {
+                StdOut.println("Este libro no ha sido encontrado");
+                break;
+            }
 
         }
 
