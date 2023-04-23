@@ -1,7 +1,46 @@
 @startuml
 left to right direction
+!pragma layout smetana
 skin rose
 
-' TODO: Add the domain model
+entity Libro {
+    isbn
+    titulo
+    autor
+    categoria
+    calificaciones
+    miembros
+    enUso
+}
+
+entity Socio {
+    nombre
+    apellido
+    correo
+    numeroDeSocio
+    clave
+    librosEnPrestamo
+}
+
+entity Sistema {
+    socios
+    libros
+    socio
+}
+
+entity Socios {
+    listaSocios
+}
+
+entity Ajustes {
+    correo
+    clave
+}
+
+(Socios, Sistema) -- Socio : Genera
+Socio - Libro : Solicita prestamo
+Socio - Libro : Califica
+Socio -- Ajustes : Realiza
+
 
 @enduml
