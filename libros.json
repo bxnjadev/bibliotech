@@ -4,8 +4,12 @@
     "titulo": "Head First Java: A Brain-Friendly Guide",
     "autor": " Kathy Sierra",
     "categoria": "Programming Languages",
-    "calificaciones": [],
-    "miembros": [],
+    "calificaciones": [
+      4
+    ],
+    "miembros": [
+      1
+    ],
     "enUso": false
   },
   {

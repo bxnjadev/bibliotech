@@ -48,7 +48,7 @@ public final class Libro {
      * @param categoria del libro.
      */
     public Libro(final String isbn, final String titulo, final String autor, final String categoria) {
-        // TODO: agregar validacion de ISBN
+        Utils.validarString(isbn, "El isbn no puede ser nulo");
         this.isbn = isbn;
 
         // validacion del titulo
@@ -57,16 +57,15 @@ public final class Libro {
         }
         this.titulo = titulo;
 
-        // TODO: Agregar validacion
+        Utils.validarString(autor, "El autor no puede ser nulo");
         this.autor = autor;
 
-        // TODO: Agregar validacion
+        Utils.validarString(categoria, "La categoria no puede ser nulo");
         this.categoria = categoria;
 
         this.enUso = false;
         this.calificaciones = new Integer[0];
         this.miembros = new Integer[0];
-        System.out.println("AAAA");
     }
 
     /**
@@ -162,7 +161,12 @@ public final class Libro {
 
         //Recorre todas las calificaciones y las suma
 
-        for (int calificacion : calificaciones) {
+        for (Integer calificacion : calificaciones) {
+
+            if (calificacion == null) {
+                continue;
+            }
+
             sumaCalificacion = calificacion + sumaCalificacion;
         }
 

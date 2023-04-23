@@ -60,19 +60,9 @@ public final class Utils {
 
         List<T> list = new ArrayList<>();
 
-        System.out.println("l: " + array.length);
-
         Collections.addAll(list, array);
 
-        System.out.println("l r: " + list.size());
-
         list.remove(object);
-
-        System.out.println("l: " + list.size());
-
-        for (Object otherObject : list) {
-            System.out.println(otherObject.toString());
-        }
 
         return list.toArray(array);
     }
@@ -173,6 +163,12 @@ public final class Utils {
     public static void validarNumeroSocio(int numeroSocio) {
         if (numeroSocio < 0) {
             throw new IllegalArgumentException("El número de socio debe ser negativo");
+        }
+    }
+
+    public static void validarString(String isbn, String mnesajeError) {
+        if (isbn == null) {
+            throw new IllegalArgumentException("El isbn es nulo");
         }
     }
 

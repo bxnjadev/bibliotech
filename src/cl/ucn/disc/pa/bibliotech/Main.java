@@ -16,6 +16,8 @@ import java.util.Objects;
 
 /**
  * The Main.
+ * <p>
+ * Benjamín Miranda 21544970K
  *
  * @author Programacion Avanzada.
  */
@@ -99,11 +101,10 @@ public final class Main {
                     [1] Prestamo de un libro
                     [2] Editar información
                     [3] Calificar libro
-                    [4] Devolver un libro
-                    [5] Mostrar información de un libro
-                    [6] Remover una calificación a un libro
+                    [4] Mostrar información de un libro
+                    [5] Remover una calificación a un libro
                                         
-                    [7] Cerrar sesion
+                    [6] Cerrar sesion
                     """);
 
             StdOut.print("Escoja una opcion: ");
@@ -118,10 +119,17 @@ public final class Main {
                 case "1" -> mostrarMenuPrestamo(sistema);
                 case "2" -> editarInformacion(sistema);
                 case "3" -> calificarLibro(sistema, socioId);
-                case "4" -> mostrarMenuDeDevueltaDeLibros(sistema);
-                case "5" -> mostrarLibro(sistema);
-                case "6" -> removerCalification(sistema);
-                case "7" -> sistema.cerrarSession();
+                case "4" -> mostrarLibro(sistema);
+                case "5" -> removerCalification(sistema);
+                case "7" -> {
+                    sistema.cerrarSession();
+
+                    try {
+                        main(null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 default -> StdOut.println("Opcion no valida, intente nuevamente");
             }
         }
@@ -396,6 +404,13 @@ public final class Main {
             if (libroBuscado == null) {
                 StdOut.println("Este libro no ha sido encontrado");
                 break;
+            }
+
+            int posicion = libroBuscado.socioHaCalificadoEsteLibro(socioId);
+
+            if (posicion != -1) {
+                StdOut.println("Ya has calificado este libro");
+                return;
             }
 
             //Ahora se pide la calificacion
