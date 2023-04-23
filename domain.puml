@@ -38,9 +38,9 @@ entity Ajustes {
 }
 
 (Socios, Sistema) -- Socio : Genera
-Socio - Libro : Solicita prestamo
-Socio - Libro : Califica
-Socio -- Ajustes : Realiza
+Socio -> "1.*" Libro : Solicita prestamo
+Socio -> "1" Libro : Califica
+Socio --> "1.2" Ajustes : Realiza
 
 
 @enduml
