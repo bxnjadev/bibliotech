@@ -87,7 +87,7 @@ public final class Main {
         mostrarMenuPrincipal(sistema, numeroSocio);
     }
 
-    private static void mostrarMenuPrincipal(final Sistema sistema, int partnerNumber) {
+    private static void mostrarMenuPrincipal(final Sistema sistema, int socioId) {
         String opcion = null;
 
         //Este while funciona como menu principal
@@ -116,8 +116,8 @@ public final class Main {
 
             switch (opcion) {
                 case "1" -> mostrarMenuPrestamo(sistema);
-                case "2" -> editarInformacion(sistema, partnerNumber);
-                case "3" -> calificarLibro(sistema, partnerNumber);
+                case "2" -> editarInformacion(sistema);
+                case "3" -> calificarLibro(sistema, socioId);
                 case "4" -> mostrarMenuDeDevueltaDeLibros(sistema);
                 case "5" -> mostrarLibro(sistema);
                 case "6" -> removerCalification(sistema);
@@ -159,10 +159,10 @@ public final class Main {
     /**
      * Open and show the return book menu
      *
-     * @param bibliotechSystem the bibliotech system
+     * @param sistema the bibliotech system
      */
 
-    private static void mostrarMenuDeDevueltaDeLibros(Sistema bibliotechSystem) {
+    private static void mostrarMenuDeDevueltaDeLibros(Sistema sistema) {
 
         StdOut.println("Bienvenido al sistema de devolución de libros: ");
         StdOut.println("Por favor ingresa el ISBN del libro que deseas devolver: ");
@@ -171,7 +171,7 @@ public final class Main {
 
         String isbn = StdIn.readLine();
 
-        Libro libroBuscado = bibliotechSystem.buscarLibro(isbn);
+        Libro libroBuscado = sistema.buscarLibro(isbn);
 
         //Se verifica si el libro no es nulo
 
@@ -182,7 +182,7 @@ public final class Main {
 
         //Se obtiene el socio logeado
 
-        Socio socio = bibliotechSystem.getSocioLogeado();
+        Socio socio = sistema.getSocioLogeado();
 
         //Se verifica si el socio no tiene el libro en ese caso se le avisa
 
@@ -202,7 +202,7 @@ public final class Main {
 
             //Por último se guarda
 
-            bibliotechSystem.guardarInformacion();
+            sistema.guardarInformacion();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -212,11 +212,10 @@ public final class Main {
     /**
      * Abrir y mostrar los ajustes del socio
      *
-     * @param sistema       the bibliotech system
-     * @param partnerNumber the partner number id
+     * @param sistema the bibliotech system
      */
 
-    private static void editarInformacion(Sistema sistema, int partnerNumber) {
+    private static void editarInformacion(Sistema sistema) {
 
         String opcion = null;
 
@@ -507,7 +506,7 @@ public final class Main {
         StdOut.println("ISBN: " + libroBuscado.getIsbn());
         StdOut.println("Categoria: " + libroBuscado.getCategoria());
 
-        int calificacion = libroBuscado.getFinalCalification();
+        int calificacion = libroBuscado.getCalificacionFinal();
 
         if (calificacion == -1) {
             StdOut.println("Calificación: No se ha calificado este libro");

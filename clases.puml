@@ -9,33 +9,87 @@ class Libro {
     - titulo
     - autor
     - categoria
-    - greats
-    - members
-    - inUse
+    - calificaciones
+    - miemrbos
+    - enUso
 
     getIsbn() : String
     getTitulo() : String
     getAutor() : String
     getCategoria() : String
-    getGreats() : int[]
-    getMembers() : int[]
-    inUse() : boolean
-    getFinalCalification() : int
-    updateAsUsted() : void
-    updateAsNotUsted() : void
+    calificarLibro(int calificacion, int idSocio) : void
+    socioHaCalificadoEsteLibro(int idSocio) : int
+    enUso() : int
+    marcarComoEnuso() : void
+    sacarDeUso() : void
+    getCalificaciones() : Integer[]
+    getMiembros() : Integer[]
+    getCalificacionFinal() : int
+    removerCalificacion() : idSocio
 
 }
 
 class Socio {
+    - nombre : String
+    - apellido : String
+    - correo : String
+    - numeroDeSocio : String
+    - clave : String
+    - librosEnPrestamo : Libro[]
+
+    + getNombre() : String
+    + getApellido() : String
+    + getNombreCompleto() : String
+    + getCorreoElectronico() : String
+    + getNumeroDeSocio() : int
+    + getClave() : String
+    + getLibroEnPrestamo() : Libro[]
+    + setCorreo(String correo) : void
+    + borrarLibro(Libro libro) : void
+    + agregarLibro(Libro libro) : void
+    + tieneLibro(Libro libro) : void
+
 }
 
 class Sistema {
-}
+    - GSON : Gson
+    - socios : Socio[]
+    - libros : Libro[]
+    - socio : Socio
 
-class Utils {
+    Sistema() : Sistema
+    + iniciarSesion(int idSocio, String claveIngresada) : void
+    + lanzarExcepcion(String mensaje) : void
+    + getSocio(int idSocio) : Socio
+    + getSocioLogeado() : Socio
+    + realizarPrestamoLibro(String isbn) : void
+    + obtenerCatalogoLibros() : void
+    + buscarLibro() : void
+    + actualizarClaveYGuardar(String clave) : void
+    + actualizarCorreoYGuardar(String correo) : void
+    + guardarInformacion() : void
+    - cargarInformacion() : void
+
+
 }
 
 class Main {
+    + main(String[] args) : void
+    + iniciarSesion(Sistema sistema) : void
+    + mostrarMenuPrincipal(Sistema sistema, int socioId): void
+    + mostrarMenuPrestamo(Sistema sistema) : void
+    + mostrarMenuDeDevueltaDeLibros(Sistema sistema) : void
+    + editarInformacion(Sistema sistema) : void
+    + verificarClave(Socio socio) : void
+    + modificarClave(Sistema sistema) : void
+    + modificarCorreo(Sistema sistema) : void
+    + calificarLibro(Sistema sitema, int socioId) : void
+    + removerCalificacion(Sistema sistema) : void
+    + mostrarLibro(Sistema sistema) : void
 }
+
+Main - Sistema : Interactua
+Sistema o-- Socio : Tiene
+(Socio, Sistema) - Libro
 
 @enduml

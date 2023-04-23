@@ -149,7 +149,7 @@ public final class Libro {
         return this.miembros;
     }
 
-    public int getFinalCalification() {
+    public int getCalificacionFinal() {
 
         int calificacionFinal;
         int sumaCalificacion = 0;
